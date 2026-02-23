@@ -17,6 +17,8 @@ return {
     -- Mock nvim-web-devicons for compatibility with other plugins
     require("mini.icons").mock_nvim_web_devicons()
 
+    -- require("mini.animate").setup()
+
     -- Mini.ai - Enhanced text objects
     require("mini.ai").setup({
       mappings = {
@@ -54,7 +56,7 @@ return {
 
     -- Mini.pairs - Replaces autopairs
     require("mini.pairs").setup({
-      modes = { insert = true, command = false, terminal = false },
+      modes = { insert = true, command = true, terminal = false },
       mappings = {
         ["("] = { action = "open", pair = "()", neigh_pattern = "[^\\]." },
         ["["] = { action = "open", pair = "[]", neigh_pattern = "[^\\]." },
@@ -100,29 +102,5 @@ return {
       n_lines = 20,
       search_method = "cover_or_next",
     })
-
-    -- Mini.cursorword - Highlight word under cursor
-    -- require("mini.cursorword").setup({
-    --   delay = 100,
-    -- })
-
-    -- Disable cursorword for certain filetypes
-    -- vim.api.nvim_create_autocmd("FileType", {
-    --   pattern = {
-    --     "help",
-    --     "alpha",
-    --     "dashboard",
-    --     "neo-tree",
-    --     "Trouble",
-    --     "lazy",
-    --     "mason",
-    --     "notify",
-    --     "toggleterm",
-    --     "lazyterm",
-    --     "TelescopePrompt",
-    --   },
-    --   callback = function()
-    --     vim.b.minicursorword_disable = true
-    --   end,
   end,
 }

@@ -71,3 +71,4 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-
 source ~/dotfiles/.config/zsh/comp/starship.zsh
 source ~/dotfiles/.config/zsh/comp/nala.zsh
 source ~/dotfiles/.config/zsh/comp/tod.zsh
+source ~/dotfiles/.config/zsh/comp/bob.zsh

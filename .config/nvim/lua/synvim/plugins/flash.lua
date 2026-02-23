@@ -15,7 +15,7 @@ return {
       },
       char = {
         enabled = false,  -- Enhanced f/F/t/T
-        jump_labels = true,
+        jump_labels = false,
       },
     },
   },

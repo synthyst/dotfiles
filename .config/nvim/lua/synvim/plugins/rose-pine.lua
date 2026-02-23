@@ -64,7 +64,7 @@ return {
       BlinkCmpDoc = { bg = "base" },
       BlinkCmpDocBorder = { bg = "base"},
       BlinkCmpDocSeparator = { bg = "base"},
-      Visual = { bg = "subtle", italic = true },
+      Visual = { bg = "surface", italic = true },
       FloatBorder = { fg = "pine" },
       BlinkCmpSignatureHelpActiveParameter = { bg = "base", },
       BlinkCmpGhostText = { fg = "subtle" },
@@ -99,6 +99,14 @@ return {
       DashboardIcon = { fg = "gold", bold = true },
       DashboardKey = { fg = "foam", italic = true },
       HLYank = { fg = "love", italic = true, bold = true },
+      Fterm = { bg = 'surface' },
+      FtermBorder = { fg = 'iris' },
+      MiniWindow = { bg = 'surface', fg = 'iris', bold = true },
+      -- ErrorMsg = { bg = 'love', fg = 'surface', bold = true },
+      -- WarningMsg= { bg = 'gold', fg = 'surface', bold = true },
+      -- MoreMsg = { bg = 'iris', fg = 'surface', italic = true },
+      StatusLineTerm = { bg = 'none' },
+      StatusLineTermNC = { bg = 'none' },
     }
   },
 

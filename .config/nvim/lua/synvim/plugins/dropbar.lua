@@ -1,7 +1,6 @@
 return {
   'Bekaboo/dropbar.nvim',
-  -- optional, but required for fuzzy finder support
-  enabled = false,
+  -- enabled = false,
   dependencies = {
     'nvim-tree/nvim-web-devicons',
     'nvim-telescope/telescope-fzf-native.nvim',

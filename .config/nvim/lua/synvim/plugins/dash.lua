@@ -27,52 +27,6 @@ return {
       "                                                                        ",
     }
 
-    -- Obsidian vault picker
-    local function open_obsidian_vault()
-      local ok_obsidian, obsidian = pcall(require, "obsidian")
-      if not ok_obsidian then
-        vim.notify("Obsidian not installed", vim.log.levels.ERROR)
-        return
-      end
-
-      local client = obsidian.get_client()
-      local workspaces = client.opts.workspaces
-
-      if #workspaces == 1 then
-        require("mini.files").open(workspaces[1].path, true)
-      else
-        local pickers = require("telescope.pickers")
-        local finders = require("telescope.finders")
-        local actions = require("telescope.actions")
-        local action_state = require("telescope.actions.state")
-        local conf = require("telescope.config").values
-
-        pickers
-          .new({}, {
-            prompt_title = "Select Obsidian Vault",
-            finder = finders.new_table({
-              results = workspaces,
-              entry_maker = function(entry)
-                return {
-                  value = entry,
-                  display = entry.name,
-                  ordinal = entry.name,
-                }
-              end,
-            }),
-            sorter = conf.generic_sorter({}),
-            attach_mappings = function(prompt_bufnr)
-              actions.select_default:replace(function()
-                local selection = action_state.get_selected_entry()
-                actions.close(prompt_bufnr)
-                require("mini.files").open(selection.value.path, true)
-              end)
-              return true
-            end,
-          })
-          :find()
-      end
-    end
 
     db.setup({
       theme = "doom",
@@ -122,16 +76,6 @@ return {
             action = "Telescope live_grep",
           },
           {
-            icon = "󰺿 ",
-            icon_hl = "DashboardIcon",
-            desc = "Obsidian vault",
-            desc_hl = "DashboardDesc",
-            key = "o",
-            key_hl = "DashboardKey",
-            key_format = " [%s]",
-            action = open_obsidian_vault,
-          },
-          {
             icon = "󰢻 ",
             desc = "Config",
             desc_hl = "DashboardDesc",
@@ -176,7 +120,7 @@ return {
         footer = function()
           local ok_lazy, lazy = pcall(require, "lazy")
           if not ok_lazy then
-            return { "SYNVIM - Perfect Neovim for Termux" }
+            return { "SynVim - Perfect Neovim for Termux" }
           end
 
           local stats = lazy.stats()

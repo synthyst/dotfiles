@@ -1,5 +1,7 @@
 return {
   'simonmclean/triptych.nvim',
+  lazy = false,
+  enabled = false,
   dependencies = {
     'nvim-lua/plenary.nvim', -- required
     'nvim-tree/nvim-web-devicons', -- optional for icons

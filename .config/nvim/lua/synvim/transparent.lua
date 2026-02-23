@@ -15,8 +15,8 @@ M.setup = function()
     "NvimTreeNormal",
     "NvimTreeNormalNC",
     "BufferLineFill",
-    -- "LualineC",
-    -- "LualineY",
+    "LualineC",
+    "LualineY",
   }
 
   for _, group in ipairs(transparent_groups) do

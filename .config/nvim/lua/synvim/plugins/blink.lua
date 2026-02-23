@@ -3,9 +3,10 @@ return {
   lazy = false,
   dependencies = {
     "moyiz/blink-emoji.nvim",
-    'L3MON4D3/LuaSnip', version = 'v2.*',
+    -- 'L3MON4D3/LuaSnip', version = 'v2.*',
     "rafamadriz/friendly-snippets",
-    "onsails/lspkind.nvim",
+    -- 'Kaiser-Yang/blink-cmp-dictionary', ft = { 'markdown' },
+    -- "onsails/lspkind.nvim",
   },
   version = "1.*",
 
@@ -25,11 +26,10 @@ return {
       ["<Tab>"] = { "snippet_forward", "select_next", "fallback" },
       ["<S-Tab>"] = { "snippet_backward", "select_prev", "fallback" },
     },
-    snippets = { preset = 'luasnip' },
+    -- snippets = { preset = 'luasnip' },
     cmdline = {
       enabled = true,
-      keymap = { preset = 'cmdline' },
-      completion = { menu = { auto_show = true } },
+      completion = { list = { selection = { preselect = false, auto_insert = true } }, menu = { auto_show = true, draw = { columns = { { "label" } } } } },
       sources = { 'cmdline', 'buffer' },
     },
     completion = {
@@ -131,6 +131,17 @@ return {
             use_label_description = false,
           }
         },
+        dictionary = {
+          module = 'blink-cmp-dictionary',
+          name = 'Dict',
+          min_keyword_length = 3,
+          opts = {
+            -- Optional: explicitly force fallback mode
+            -- (By default, fallback is used when fzf is not found)
+            force_fallback = false,
+            dictionary_files = { vim.fn.expand('~/bin/spell/english.txt') },
+          },
+        },
         emoji = {
           module = "blink-emoji",
           name = "Emoji",
@@ -144,8 +155,8 @@ return {
           },
           should_show_items = function()
             return vim.tbl_contains(
-              -- Enable emoji completion only for git commits and markdown.
-              -- By default, enabled for all file-types.
+            -- Enable emoji completion only for git commits and markdown.
+            -- By default, enabled for all file-types.
               { "gitcommit", "markdown" },
               vim.o.filetype
             )
@@ -195,46 +206,46 @@ return {
 
         -- pass a function for custom behavior
         -- function(item_a, item_b)
-          --   return item_a.score > item_b.score
-          -- end,
+        --   return item_a.score > item_b.score
+        -- end,
 
-          'score',
-          'sort_text',
+        'score',
+        'sort_text',
+      },
+
+      prebuilt_binaries = {
+        -- Whether or not to automatically download a prebuilt binary from github. If this is set to `false`,
+        -- you will need to manually build the fuzzy binary dependencies by running `cargo build --release`
+        -- Disabled by default when `fuzzy.implementation = 'lua'`
+        download = true,
+
+        -- Ignores mismatched version between the built binary and the current git sha, when building locally
+        ignore_version_mismatch = false,
+
+        -- When downloading a prebuilt binary, force the downloader to resolve this version. If this is unset
+        -- then the downloader will attempt to infer the version from the checked out git tag (if any).
+        --
+        -- Beware that if the fuzzy matcher changes while tracking main then this may result in blink breaking.
+        force_version = nil,
+
+        -- When downloading a prebuilt binary, force the downloader to use this system triple. If this is unset
+        -- then the downloader will attempt to infer the system triple from `jit.os` and `jit.arch`.
+        -- Check the latest release for all available system triples
+        --
+        -- Beware that if the fuzzy matcher changes while tracking main then this may result in blink breaking.
+        force_system_triple = nil,
+
+        -- Extra arguments that will be passed to curl like { 'curl', ..extra_curl_args, ..built_in_args }
+        extra_curl_args = {},
+
+        proxy = {
+          -- When downloading a prebuilt binary, use the HTTPS_PROXY environment variable
+          from_env = true,
+
+          -- When downloading a prebuilt binary, use this proxy URL. This will ignore the HTTPS_PROXY environment variable
+          url = nil,
         },
-
-        prebuilt_binaries = {
-          -- Whether or not to automatically download a prebuilt binary from github. If this is set to `false`,
-          -- you will need to manually build the fuzzy binary dependencies by running `cargo build --release`
-          -- Disabled by default when `fuzzy.implementation = 'lua'`
-          download = true,
-
-          -- Ignores mismatched version between the built binary and the current git sha, when building locally
-          ignore_version_mismatch = false,
-
-          -- When downloading a prebuilt binary, force the downloader to resolve this version. If this is unset
-          -- then the downloader will attempt to infer the version from the checked out git tag (if any).
-          --
-          -- Beware that if the fuzzy matcher changes while tracking main then this may result in blink breaking.
-          force_version = nil,
-
-          -- When downloading a prebuilt binary, force the downloader to use this system triple. If this is unset
-          -- then the downloader will attempt to infer the system triple from `jit.os` and `jit.arch`.
-          -- Check the latest release for all available system triples
-          --
-          -- Beware that if the fuzzy matcher changes while tracking main then this may result in blink breaking.
-          force_system_triple = nil,
-
-          -- Extra arguments that will be passed to curl like { 'curl', ..extra_curl_args, ..built_in_args }
-          extra_curl_args = {},
-
-          proxy = {
-            -- When downloading a prebuilt binary, use the HTTPS_PROXY environment variable
-            from_env = true,
-
-            -- When downloading a prebuilt binary, use this proxy URL. This will ignore the HTTPS_PROXY environment variable
-            url = nil,
-          },
-        },
-      }
+      },
+    }
   },
 }

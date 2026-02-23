@@ -45,6 +45,7 @@ export DISPLAY=:0
 # Add user-local binaries to PATH (highest priority)
 export PATH="${HOME}/.local/bin:${PATH}"
 export PATH="$HOME/.cargo/bin:$PATH"
+export CARGO_TARGET_DIR="/data/data/com.termux/files/usr/tmp/cargo-installYmAtb8"
 
 # ───────────────────────────────────────────────────────────────
 #  FZF Configuration

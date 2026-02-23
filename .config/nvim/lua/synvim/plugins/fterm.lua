@@ -20,7 +20,7 @@ return {
       border = "rounded",
 
       -- Blend (transparency)
-      blend = 0,
+      blend = 35,
 
       -- Dimensions
       dimensions = {
@@ -35,8 +35,7 @@ return {
       auto_close = true,
 
       -- Highlight groups
-      hl = "Normal",
-      border_hl = "FloatBorder",
+      hl = "Fterm",
     })
 
     -- Toggle terminal (both normal and terminal mode)
@@ -98,14 +97,6 @@ return {
         vim.opt_local.number = false
         vim.opt_local.relativenumber = false
         vim.opt_local.signcolumn = "no"
-      end,
-    })
-
-    -- Custom highlights (theme adaptive)
-    vim.api.nvim_create_autocmd("ColorScheme", {
-      callback = function()
-        vim.api.nvim_set_hl(0, "Fterm", { bg = "#1e1e2e" })
-        vim.api.nvim_set_hl(0, "FtermBorder", { fg = "#89b4fa" })
       end,
     })
   end,

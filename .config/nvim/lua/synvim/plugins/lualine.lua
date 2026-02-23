@@ -12,25 +12,6 @@ return {
   config = function()
     local lualine = require("lualine")
 
-    -- Custom function to get truncated file path (3 levels)
-    local function truncated_path()
-      local path = vim.fn.expand("%:p")
-      local home = vim.fn.expand("~")
-      if path:find(home) then
-        path = path:gsub(vim.pesc(home), "~")
-      end
-      local parts = {}
-      for part in path:gmatch("[^/]+") do
-        table.insert(parts, part)
-      end
-      local depth = math.min(1, #parts)
-      local truncated = table.concat(parts, "/", #parts - depth + 1)
-      if path:sub(1, 1) == "/" and truncated:sub(1, 1) ~= "/" then
-        truncated = "/" .. truncated
-      end
-      return truncated
-    end
-
     -- Mode icon map
     local mode_icons = {
       n = "󰆾 ",
@@ -73,11 +54,6 @@ return {
         ["darkvoid"] = "auto",
       }
       return theme_map[colorscheme] or "auto"
-    end
-
-    -- Time component (12-hour format)
-    local function current_time()
-      return os.date(" %I:%M") -- 12-hour format with AM/PM
     end
 
     lualine.setup({
@@ -191,10 +167,7 @@ return {
         lualine_a = {},
         lualine_b = {},
         lualine_c = {
-          {
-            truncated_path,
-            color = "lualine_c_inactive",
-          },
+
         },
         lualine_x = {
           {

@@ -8,6 +8,7 @@ return {
 
   require 'nvim-treesitter'.setup {
     install_dir = "~/bin/TS/parsers",
+    auto_install = true,
     ensure_installed = {
       "bash",
       "c",

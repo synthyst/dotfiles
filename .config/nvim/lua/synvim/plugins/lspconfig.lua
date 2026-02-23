@@ -153,41 +153,38 @@ return {
         local opts = { buffer = args.buf }
 
         -- Navigation
-        vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-        vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-        vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-        vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-        vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, opts)
+        vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
+        vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Go to declaration" })
+        vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Go to implementation" })
+        vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "Go to references" })
+        vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, { desc = "Go to type definition" })
 
         -- Documentation
-        vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-        vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
+        vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Show Documentation" })
+        vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, { desc = "Show signature help" })
 
         -- Code actions
-        vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-        vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+        vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Perform code action" })
+        vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Perform rename" })
 
         -- Diagnostics
         -- vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
-        vim.keymap.set("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true }) end, opts)
-        vim.keymap.set("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end, opts)
+        vim.keymap.set("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true }) end, { desc = "Next Diagnostic"})
+        vim.keymap.set("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end, { desc = "Previous Diagnostic"})
 
         -- Diagnostic configuration
         vim.diagnostic.config({
-          virtual_text = false,
-          -- virtual_text = {
-          --   prefix = " ",
-          --   spacing = 4,
-          -- },
+          virtual_text = {
+            prefix = " ",
+            spacing = 4,
+          },
           signs = true,
           underline = true,
           update_in_insert = false,
           severity_sort = true,
           float = {
             border = "rounded",
-            -- source = "always",
-            header = "Diagnostics :",
-            prefix = "> ",
+            source = "always",
           },
         })
 

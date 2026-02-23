@@ -2,7 +2,11 @@
 -- Main entry point
 --
 -- Load core settings first (sets leader key and options)
-require("synvim.settings")
+require("synvim.options")
+
+require("synvim.keymaps").setup()
+
+require("synvim.autocmds")
 
 -- Permanent theme
 require("synvim.plugins.rose-pine")

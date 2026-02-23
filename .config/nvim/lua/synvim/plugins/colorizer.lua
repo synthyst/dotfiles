@@ -45,6 +45,8 @@ return {
       "!mason",
       "!help",
       "!checkhealth",
+      "!markdown",
+      "!md",
     },
 
     -- Buftype options
