@@ -18,7 +18,6 @@ return {
       cmd = { "pyright-langserver", "--stdio" },
       filetypes = { "python" },
       root_markers = { "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", "Pipfile", ".git" },
-      capabilities = capabilities,
       settings = {
         python = {
           analysis = {
@@ -110,7 +109,6 @@ return {
       cmd = { "gopls" },
       filetypes = { "go", "gomod", "gowork", "gotmpl" },
       root_markers = { "go.work", "go.mod", ".git" },
-      capabilities = capabilities,
       settings = {
         gopls = {
           analyses = {
@@ -141,8 +139,6 @@ return {
     vim.lsp.config.taplo = {
       cmd = { "taplo", "lsp", "stdio" },
       filetypes = { "toml" },
-      root_markers = { ".git" },
-      capabilities = capabilities,
     }
 
     vim.lsp.enable({ 'clangd', 'lua_ls', 'taplo', 'gopls', 'pyright', 'rust_analyzer' })

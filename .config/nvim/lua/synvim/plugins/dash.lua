@@ -128,7 +128,7 @@ return {
 
           return {
             "",
-            "Neovim loaded " .. stats.loaded .. " plugins in " .. ms .. "ms",
+            "Neovim loaded " .. stats.loaded .. "/" .. stats.count .. " plugins in " .. ms .. "ms",
           }
         end,
       },

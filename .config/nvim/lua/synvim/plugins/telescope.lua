@@ -29,6 +29,7 @@ return {
     { "<leader>sm", "<cmd>Telescope resume<cr>",                    desc = "Resume last search" },
     { "<leader>s%", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Search current buffer" },
     { "<leader>sa", "<cmd>Telescope aerial<cr>",                    desc = "Search Aerial" },
+    { '<leader>s"', "<cmd>Telescope registers<cr>",                 desc = "Registers" },
     {
       "<leader>sw",
       function()
@@ -44,17 +45,16 @@ return {
 
     telescope.setup({
       defaults = {
-        prompt_prefix = "  ",
-        -- selection_caret = "|> ",
-
+        prompt_prefix = " ",
         sorting_strategy = "descending",
+        path_display = { truncate = 3 },
         layout_strategy = "horizontal",
+        dynamic_preview_title = true,
 
         layout_config = {
           horizontal = {
             prompt_position = "bottom",
             preview_width = 0.55,
-            results_width = 0.8,
           },
           vertical = {
             mirror = false,
@@ -73,8 +73,12 @@ return {
             ["<C-j>"] = actions.move_selection_next,
             ["<C-k>"] = actions.move_selection_previous,
             ["<C-x>"] = actions.delete_buffer,
-            ["<Esc>"] = actions.close,
-            ["kj"] = actions.close,
+            ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
+            ["<C-u>"] = actions.preview_scrolling_up,
+            ["<C-d>"] = actions.preview_scrolling_down,
+            ["<C-n>"] = actions.cycle_history_next,
+            ["<C-p>"] = actions.cycle_history_prev,
+            ["jk"] = actions.close
           },
           n = {
             ["q"] = actions.close,
@@ -97,17 +101,42 @@ return {
       pickers = {
         find_files = {
           hidden = true,
-          -- theme = "ivy",
           find_command = { "rg", "--files", "--hidden", "--glob", "!.git/*" },
+        },
+        live_grep = {
+          additional_args = function()
+            return { "--hidden", "--glob", "!.git/*" }
+          end,
+        },
+        oldfiles = {
+          only_cwd = true, -- only show recent files from the current project
+        },
+        diagnostics = {
+          theme = "ivy",
+          initial_mode = "normal", -- you usually browse, not search
         },
         keymaps = {
           theme = "ivy",
         },
+        buffers = {
+          theme = "dropdown",
+          previewer = false,
+          sort_lastused = true,
+          sort_mru = true,
+          ignore_current_buffer = true,
+        },
         current_buffer_fuzzy_find = {
           theme = "ivy",
-          prompt_position = 'bottom',
           preview_cutoff = 1,
         }
+      },
+      extensions = {
+        fzf = {
+          fuzzy = true,
+          override_generic_sorter = true,
+          override_file_sorter = true,
+          case_mode = "smart_case",
+        },
       },
     })
 

@@ -3,11 +3,12 @@
 
 return {
   "folke/flash.nvim",
+  enabled = false,
   event = { "BufReadPost", "BufNewFile" },
   opts = {
     modes = {
       search = {
-        enabled = true,  -- Enhanced search
+        enabled = true, -- Enhanced search
         multi_window = true,
         mode = "search",
         incremental = true,

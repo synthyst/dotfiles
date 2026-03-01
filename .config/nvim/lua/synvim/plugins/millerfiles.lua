@@ -1,5 +1,8 @@
 return {
   "echasnovski/mini.files",
+  dependencies = {
+    "echasnovski/mini.icons"
+  },
   lazy = false,
   config = function()
     require("mini.files").setup({

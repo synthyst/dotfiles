@@ -1,7 +1,6 @@
 return {
   "echasnovski/mini.nvim",
-  version = false,
-  event = "VeryLazy",
+  lazy = false,
   config = function()
     -- Mini.icons - Replaces nvim-web-devicons
     require("mini.icons").setup({

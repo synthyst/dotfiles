@@ -23,8 +23,7 @@ M.navigation_keymaps = function()
   map("n", "<leader>w=", "<C-w>=", { desc = "Equal window sizes" })
 
   -- Better yank/paste
-  map({ "n", "v", "x" }, "<Space><Space>y", '"+y', { desc = "Copy to system clipboard" })
-  map({ "n", "v", "x" }, "<Space><Space>p", '"+p', { desc = "Paste from system clipboard" })
+  map({ "n", "v", "x" }, "<Space><Space>", '"+', { desc = "System clipboard" })
 
   -- Window navigation (Ctrl + hjkl)
   map("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })

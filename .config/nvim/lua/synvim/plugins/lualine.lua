@@ -23,6 +23,11 @@ return {
       c = "󰘳 ",
       t = " ",
     }
+    local function arrow()
+      local status = require("arrow.statusline").text_for_statusline_with_icons()
+
+      return status
+    end
 
     lualine.setup({
       options = {
@@ -41,8 +46,9 @@ return {
               local mode = vim.fn.mode()
               return mode_icons[mode] or mode
             end,
-            padding = { left = 0.8, right = 0.8 },
             separator = { left = '', right = '' },
+            color = { gui = 'bold' },
+            padding = { left = 0.8, right = 0.8 },
           },
         },
         -- Middle-left: git branch and diff
@@ -51,7 +57,7 @@ return {
             'filename',
             file_status = true,
             shorting_target = 70,
-            color = 'FilePath',
+            color = { gui = 'italic' },
             path = 1,
             separator = { right = '' },
             symbols = {
@@ -62,16 +68,15 @@ return {
             }
           },
           {
-            "branch",
-            icon = "󰘬",
-            color = 'Rose',
-            separator = { right = '' },
+            arrow,
           },
+
+          { 'lazy' },
+          { 'quickfix' },
           {
-            'lazy'
-          },
-          {
-            'quickfix'
+            require("noice").api.status.mode.get,
+            cond = require("noice").api.status.mode.has,
+            color = { gui = 'bold', 'italic' },
           },
         },
         -- Middle: truncated file path with modified indicator
@@ -93,27 +98,21 @@ return {
           {
             'diagnostics',
             sections = { 'error', 'warn', 'info', 'hint' },
-            colored = false,
+            colored = true,
           },
         },
         -- Right side: LSP, buffer count, time, filetype
         lualine_x = {
           {
             'lsp_status',
-            color = 'LspStatus',
+            color = { gui = 'italic' },
+            colored = true,
             icon = '󰒏',
           },
         },
-        -- lualine_y = {
-        --   {
-        --     current_time,
-        --     color = "lualine_y_normal",
-        --   },
-        -- },
         lualine_y = {
           {
             'location',
-            color = 'Rose',
             padding = { left = 0, right = 1 },
             separator = { left = '' },
           },
@@ -129,7 +128,6 @@ return {
             "filetype",
             colored = false,
             icon_only = true,
-            color = 'Esor',
             icon = { align = "left" },
             padding = { left = 1, right = 1 },
           },
@@ -152,29 +150,25 @@ return {
         lualine_z = {},
       },
       tabline = {
-        lualine_a = {
+        lualine_b = {
           {
             'buffers',
             show_modified_status = true,
             show_filename_only = true, -- Shows shortened relative path when set to false.
             use_mode_colors = true,
             max_length = vim.o.columns * 4,
+
             symbols = {
-              alternate_file = '¿ ',
-              modified = ' ~'
+              alternate_file = '¿',
+              modified = '~'
             },
           },
           {
-            function()
-              return require("arrow.statusline").text_for_statusline_with_icons()
-            end,
-            cond = function()
-              return require("arrow.statusline").is_on_arrow_file()
-            end,
+            "branch",
+            icon = "󰘬",
+            color = { gui = 'bold' },
+            separator = { right = '' },
           },
-        },
-        lualine_b = {
-          'aerial'
         },
         lualine_z = {
           {
