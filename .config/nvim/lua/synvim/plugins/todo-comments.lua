@@ -6,11 +6,11 @@ return {
   dependencies = { "nvim-lua/plenary.nvim" },
   event = { "BufReadPre", "BufNewFile" },
   cmd = { "TodoTrouble", "TodoTelescope", "TodoQuickFix" },
-  
+
   opts = {
-    signs = true,  -- Show icons in sign column
+    signs = true, -- Show icons in sign column
     sign_priority = 8,
-    
+
     -- Keywords recognized as todo comments
     keywords = {
       FIX = {
@@ -25,18 +25,18 @@ return {
       NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
       TEST = { icon = "⏲ ", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
     },
-    
+
     -- Highlighting style
     highlight = {
       multiline = true,
       before = "",
-      keyword = "wide",  -- Highlight the keyword widely
+      keyword = "wide", -- Highlight the keyword widely
       after = "fg",
       pattern = [[.*<(KEYWORDS)s*:]],
-      comments_only = true,  -- Only in comments (uses treesitter)
+      comments_only = true, -- Only in comments (uses treesitter)
       max_line_len = 400,
     },
-    
+
     -- Colors (uses Catppuccin)
     colors = {
       error = { "DiagnosticError", "ErrorMsg", "#DC2626" },
@@ -47,11 +47,10 @@ return {
       test = { "Identifier", "#FF00FF" },
     },
   },
-  
+
   keys = {
-    { "]t", function() require("todo-comments").jump_next() end, desc = "Next todo" },
-    { "[t", function() require("todo-comments").jump_prev() end, desc = "Previous todo" },
-    { "<leader>st", "<cmd>TodoTelescope<CR>", desc = "Search Todos" },
-    { "<leader>sq", "<cmd>TodoQuickFix<CR>", desc = "Todo Quickfix" },
+    { "]t",         function() require("todo-comments").jump_next() end, desc = "Next todo" },
+    { "[t",         function() require("todo-comments").jump_prev() end, desc = "Previous todo" },
+    { "<leader>sq", "<cmd>TodoQuickFix<CR>",                             desc = "Todo Quickfix" },
   },
 }

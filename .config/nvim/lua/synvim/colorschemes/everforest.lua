@@ -3,8 +3,8 @@ return {
   "neanias/everforest-nvim",
   lazy = true,
   config = function()
-    vim.g.everforest_background = "hard"  -- hard, medium, soft
-    vim.g.everforest_transparent_background = 1  -- 0=no, 1=partial, 2=full
+    vim.g.everforest_background = "hard"        -- hard, medium, soft
+    vim.g.everforest_transparent_background = 0 -- 0=no, 1=partial, 2=full
     vim.g.everforest_better_performance = 1
 
     require("everforest").setup({

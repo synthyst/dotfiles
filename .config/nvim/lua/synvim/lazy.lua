@@ -21,9 +21,8 @@ vim.opt.rtp:prepend(lazypath)
 -- Setup lazy.nvim with plugin directory
 require("lazy").setup({
   spec = {
-    { import = "synvim.plugins" },  -- Regular plugins
-    -- { import = "synvim.plugins.rose-pine"}
-    -- { import = "synvim.themes" },   -- Theme plugins
+    { import = "synvim.plugins" },      -- Regular plugins
+    { import = "synvim.colorschemes" }, -- Theme plugins
   },
   install = {
     missing = true,
@@ -32,7 +31,7 @@ require("lazy").setup({
   ui = {
     border = "rounded",
   },
-  diff = { cmd = "diffview.nvim"},
+  diff = { cmd = "diffview.nvim" },
   headless = {
     -- show the output from process commands like git
     process = true,

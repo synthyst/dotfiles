@@ -51,13 +51,11 @@ return {
         auto_show = true,
 
         draw = {
-          gap = 1,
-          snippet_indicator = "&",
+          snippet_indicator = "@",
           treesitter = { 'lsp', 'buffer' },
           columns = {
-            { "kind_icon" },
-            { "label",             gap = 1 },
-            { "label_description", "kind", gap = 1, "source_name" }
+            { "kind_icon",         gap = 1, "label" },
+            { "label_description", "kind",  gap = 1, "source_name" }
           },
         },
       },

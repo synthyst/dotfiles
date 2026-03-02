@@ -43,6 +43,10 @@ return {
       h5 = "pine",
       h6 = "foam",
     },
+    palette = {
+      main = {
+      },
+    },
     highlight_groups = {
       TelescopeBorder = { fg = "highlight_high", bg = "none" },
       TelescopeNormal = { bg = "none" },
@@ -107,6 +111,10 @@ return {
       DiagnosticSignWarn = { fg = 'gold', italic = true },
       DiagnosticSignHint = { fg = 'iris', italic = true },
       DiagnosticSignInfo = { fg = 'foam', italic = true },
+      Boolean = { bold = true },
+      Function = { bold = true, italic = true },
+      NoiceLspProgressSpinner = { bg = 'none', fg = 'rose' },
+      NoiceLspProgressTitle = { bg = 'none', fg = 'iris' },
     }
   },
 

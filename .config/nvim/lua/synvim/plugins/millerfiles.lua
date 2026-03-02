@@ -33,7 +33,6 @@ return {
         use_as_default_explorer = true,
       }
     })
-    local MiniFiles = require("mini.files")
     -- Create hl namespace to highlight 'mini.files' target window
     local highlight_ns = vim.api.nvim_create_namespace("highlight_minifiles_target")
     vim.api.nvim_set_hl(highlight_ns, "Normal", { link = "MiniWindow" })

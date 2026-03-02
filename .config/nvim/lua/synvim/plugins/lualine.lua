@@ -31,7 +31,7 @@ return {
 
     lualine.setup({
       options = {
-        theme = 'rose-pine',
+        -- theme = 'rose-pine',
         globalstatus = true,
         component_separators = { left = '', right = '' },
         section_separators = { left = '', right = '' },
@@ -107,7 +107,7 @@ return {
             'lsp_status',
             color = { gui = 'italic' },
             colored = true,
-            icon = '󰒏',
+            icon = '',
           },
         },
         lualine_y = {

@@ -8,9 +8,6 @@ require("synvim.keymaps").setup()
 
 require("synvim.autocmds")
 
--- Permanent theme
-require("synvim.plugins.rose-pine")
-
 -- Load lazy.nvim and plugins
 require("synvim.lazy")
 
@@ -18,4 +15,4 @@ require("synvim.lazy")
 -- require("synvim.theme-switcher").load_theme()
 
 -- Apply transparent backgrounds to all UI elements
-require("synvim.transparent").setup()
+-- require("synvim.transparent").setup()
