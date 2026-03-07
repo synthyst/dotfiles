@@ -32,6 +32,8 @@ return {
     { "<leader>sa", "<cmd>Telescope aerial<cr>",                    desc = "Search Aerial" },
     { '<leader>s"', "<cmd>Telescope registers<cr>",                 desc = "Registers" },
     { "<leader>si", "<cmd>Telescope nerdy<cr>",                     desc = "Search Nerd Icons" },
+    { '<leader>s:', '<cmd>Telescope command_history<cr>',           desc = "Search command history" },
+    { '<leader>s/', '<cmd>Telescope search_history<cr>',            desc = "Search find history" },
     {
       "<leader>sw",
       function()

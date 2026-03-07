@@ -26,7 +26,7 @@ vim.opt.smartindent = true                          -- Smart indentation
 vim.opt.wrap = false                                -- Don't wrap long lines
 vim.opt.ignorecase = true                           -- Case-insensitive search
 vim.opt.smartcase = true                            -- Smart case sensitivity
-vim.opt.hlsearch = true                             -- No search highlight by default
+vim.opt.hlsearch = true                             -- Highlight search matches
 vim.opt.incsearch = true                            -- Incremental search
 vim.opt.undofile = true                             -- Persistent undo
 vim.opt.backup = false                              -- No backup files
@@ -52,6 +52,6 @@ vim.opt.signcolumn = "yes"
 vim.opt.showmode = false
 vim.opt.spell = false
 vim.opt.list = false
-vim.opt.fillchars = { eob = ' ', fold = '*', foldopen = '-', }
+vim.opt.fillchars = { eob = ' ', fold = '*', foldopen = '-', foldclose = '+', foldsep = ' ' }
 vim.opt.pumheight = 8 -- Limit completion menu height
 vim.opt.pumblend = 60

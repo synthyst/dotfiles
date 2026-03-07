@@ -13,11 +13,54 @@ return {
     -- Get capabilities from blink.cmp
     local capabilities = require('blink.cmp').get_lsp_capabilities()
 
+    -- Diagnostic configuration (global)
+    vim.diagnostic.config({
+      virtual_text = {
+        spacing = 4,
+        severity = vim.diagnostic.severity,
+        prefix = function(d)
+          return ({ " ", " ", "󰌶 ", "  " })[d.severity]
+        end,
+      },
+      signs = {
+        text = {
+          [vim.diagnostic.severity.ERROR] = " ",
+          [vim.diagnostic.severity.WARN]  = " ",
+          [vim.diagnostic.severity.HINT]  = "󰌶 ",
+          [vim.diagnostic.severity.INFO]  = " ",
+        },
+        texthl = {
+          [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
+          [vim.diagnostic.severity.WARN]  = "DiagnosticSignWarn",
+          [vim.diagnostic.severity.INFO]  = "DiagnosticSignInfo",
+          [vim.diagnostic.severity.HINT]  = "DiagnosticSignHint",
+        },
+        numhl = {
+          [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
+          [vim.diagnostic.severity.WARN]  = "DiagnosticSignWarn",
+          [vim.diagnostic.severity.INFO]  = "DiagnosticSignInfo",
+          [vim.diagnostic.severity.HINT]  = "DiagnosticSignHint",
+        },
+        linehl = {
+          [vim.diagnostic.severity.ERROR] = "DiagnosticLineError",
+        }
+      },
+      underline = false,
+      update_in_insert = false,
+      severity_sort = true,
+      float = {
+        border = "rounded",
+        source = false,
+        header = { "Diagnostics :", "Bold" }
+      },
+    })
+
     -- Python LSP
     vim.lsp.config.pyright = {
       cmd = { "pyright-langserver", "--stdio" },
       filetypes = { "python" },
       root_markers = { "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", "Pipfile", ".git" },
+      capabilities = capabilities,
       settings = {
         python = {
           analysis = {
@@ -109,6 +152,7 @@ return {
       cmd = { "gopls" },
       filetypes = { "go", "gomod", "gowork", "gotmpl" },
       root_markers = { "go.work", "go.mod", ".git" },
+      capabilities = capabilities,
       settings = {
         gopls = {
           analyses = {
@@ -139,6 +183,7 @@ return {
     vim.lsp.config.taplo = {
       cmd = { "taplo", "lsp", "stdio" },
       filetypes = { "toml" },
+      capabilities = capabilities,
     }
 
     vim.lsp.enable({ 'clangd', 'lua_ls', 'taplo', 'gopls', 'pyright', 'rust_analyzer' })
@@ -168,47 +213,6 @@ return {
         vim.keymap.set("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end,
           { desc = "Previous Diagnostic" })
 
-        -- Diagnostic configuration
-        vim.diagnostic.config({
-          virtual_text = {
-            spacing = 4,
-            severity = vim.diagnostic.severity,
-            prefix = function(d)
-              return ({ " ", " ", "󰌶 ", "  " })[d.severity]
-            end,
-          },
-          signs = {
-            text = {
-              [vim.diagnostic.severity.ERROR] = " ",
-              [vim.diagnostic.severity.WARN]  = " ",
-              [vim.diagnostic.severity.HINT]  = "󰌶 ",
-              [vim.diagnostic.severity.INFO]  = " ",
-            },
-            texthl = {
-              [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
-              [vim.diagnostic.severity.WARN]  = "DiagnosticSignWarn",
-              [vim.diagnostic.severity.INFO]  = "DiagnosticSignInfo",
-              [vim.diagnostic.severity.HINT]  = "DiagnosticSignHint",
-            },
-            numhl = {
-              [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
-              [vim.diagnostic.severity.WARN]  = "DiagnosticSignWarn",
-              [vim.diagnostic.severity.INFO]  = "DiagnosticSignInfo",
-              [vim.diagnostic.severity.HINT]  = "DiagnosticSignHint",
-            },
-            linehl = {
-              [vim.diagnostic.severity.ERROR] = "DiagnosticLineError",
-            }
-          },
-          underline = false,
-          update_in_insert = false,
-          severity_sort = true,
-          float = {
-            border = "rounded",
-            source = false,
-            header = { "Diagnostics :", "Bold" }
-          },
-        })
       end,
     })
   end,

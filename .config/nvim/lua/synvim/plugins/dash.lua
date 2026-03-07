@@ -89,7 +89,7 @@ return {
           {
             icon = "󰒲 ",
             icon_hl = "DashboardIcon",
-            desc = "Lazy (Plugins)",
+            desc = "Lazy",
             desc_hl = "DashboardDesc",
             key = "l",
             key_hl = "DashboardKey",

@@ -3,8 +3,7 @@
 
 return {
   "lewis6991/gitsigns.nvim",
-  event = { "BufReadPre", "BufNewFile" },
-
+  event = "InsertEnter",
   opts = {
     signs = {
       add = { text = "│" },

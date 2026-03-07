@@ -17,7 +17,7 @@ end
 M.navigation_keymaps = function()
   -- Window splits
   map("n", "<leader>wv", "<cmd>vsplit<CR>", { desc = "Split vertical" })
-  map("n", "<leader>wh", "<cmd>split<CR>", { desc = "Split horizontal" })
+  map("n", "<leader>wH", "<cmd>split<CR>", { desc = "Split horizontal" })
   map("n", "<leader>wq", "<cmd>close<CR>", { desc = "Close window" })
   map("n", "<leader>wo", "<cmd>only<CR>", { desc = "Close other windows" })
   map("n", "<leader>w=", "<C-w>=", { desc = "Equal window sizes" })

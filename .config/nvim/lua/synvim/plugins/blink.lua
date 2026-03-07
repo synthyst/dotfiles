@@ -1,6 +1,6 @@
 return {
   "saghen/blink.cmp",
-  lazy = false,
+  event = "InsertEnter",
   dependencies = {
     "moyiz/blink-emoji.nvim",
     -- 'L3MON4D3/LuaSnip', version = 'v2.*',
