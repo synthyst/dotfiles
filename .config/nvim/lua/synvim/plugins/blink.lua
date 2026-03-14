@@ -44,8 +44,8 @@ return {
 
       list = { selection = { preselect = true, auto_insert = true } },
       menu = {
-        winblend = 28,
         scrollbar = false,
+        border = 'none',
         auto_show = true,
 
         draw = {
