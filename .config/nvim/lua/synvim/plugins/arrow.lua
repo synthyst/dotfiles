@@ -6,9 +6,7 @@ return {
   dependencies = {
     { "nvim-mini/mini.icons" },
   },
-  -- keys = {
-  --   { "&", desc = "Arrow Menu" }, -- Single key binding for everything
-  -- },
+    lazy = true,
 
   opts = {
     -- Show icons in menu
@@ -24,7 +22,7 @@ return {
     separate_by_branch = false, -- Set to true for git-branch-specific bookmarks
 
     -- Hide handbook (help text)
-    hide_handbook = true,
+    hide_handbook = false,
 
     -- Save arrow state (persist between sessions)
     save_path = function()
@@ -65,10 +63,6 @@ return {
 
     -- Window settings
     window = {
-      width = "auto",     -- "auto" or number
-      height = "auto",    -- "auto" or number
-      row = "auto",       -- "auto" or number
-      col = "auto",       -- "auto" or number
       border = "rounded", -- Border style
     },
 
@@ -80,20 +74,13 @@ return {
       treesitter_context = nil, -- Use treesitter context
     },
 
-    -- Custom actions
-    custom_actions = {
-      open = function(target_file_name, current_file_name) end,
-      split_vertical = function(target_file_name, current_file_name) end,
-      split_horizontal = function(target_file_name, current_file_name) end,
-    },
-
     -- Global bookmarks (always available)
     global_bookmarks = false,
 
     -- Status line configuration
     statusline = {
       enabled = true,
-      separator = " | ",
+      separator = "",
       -- Only show current file's index in statusline
       colored = true,
     },

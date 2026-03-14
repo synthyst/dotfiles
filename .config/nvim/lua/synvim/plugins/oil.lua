@@ -17,16 +17,16 @@ return {
   -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
   lazy = false,
   config = function()
-    function _G.get_oil_winbar()
-      local bufnr = vim.api.nvim_win_get_buf(vim.g.statusline_winid)
-      local dir = require("oil").get_current_dir(bufnr)
-      if dir then
-        return vim.fn.fnamemodify(dir, ":~")
-      else
-        -- If there is no current directory (e.g. over ssh), just show the buffer name
-        return vim.api.nvim_buf_get_name(0)
-      end
-    end
+    -- function _G.get_oil_winbar()
+    --   local bufnr = vim.api.nvim_win_get_buf(vim.g.statusline_winid)
+    --   local dir = require("oil").get_current_dir(bufnr)
+    --   if dir then
+    --     return vim.fn.fnamemodify(dir, ":~")
+    --   else
+    --     -- If there is no current directory (e.g. over ssh), just show the buffer name
+    --     return vim.api.nvim_buf_get_name(0)
+    --   end
+    -- end
 
     require("oil").setup({
       -- Oil will take over directory buffers (e.g. `vim .` or `:e src/`)
@@ -51,7 +51,7 @@ return {
         signcolumn = "no",
         cursorcolumn = false,
         foldcolumn = "0",
-        winbar = "%!v:lua.get_oil_winbar()",
+        -- winbar = "%!v:lua.get_oil_winbar()",
         spell = false,
         list = false,
         conceallevel = 3,
@@ -105,22 +105,13 @@ return {
         ["gx"] = "actions.open_external",
         ["g."] = { "actions.toggle_hidden", mode = "n" },
         ["g\\"] = { "actions.toggle_trash", mode = "n" },
+        ["q"] = { "actions.close", mode = 'n'}
       },
       -- Set to false to disable all of the above keymaps
       use_default_keymaps = true,
       view_options = {
         -- Show files and directories that start with "."
         show_hidden = false,
-        -- This function defines what is considered a "hidden" file
-        is_hidden_file = function(name, bufnr)
-          local m = name:match("^%.")
-          return m ~= nil
-        end,
-        -- This function defines what will never be shown, even when `show_hidden` is set
-        is_always_hidden = function(name, bufnr)
-          return false
-        end,
-        -- Sort file names with numbers in a more intuitive order for humans.
         -- Can be "fast", true, or false. "fast" will turn it off for large directories.
         natural_order = "fast",
         -- Sort file and directory names case insensitive
@@ -131,10 +122,6 @@ return {
           { "type", "asc" },
           { "name", "asc" },
         },
-        -- Customize the highlight group for the file name
-        highlight_filename = function(entry, is_hidden, is_link_target, is_link_orphan)
-          return nil
-        end,
       },
       -- Extra arguments to pass to SCP when moving/copying files over SSH
       extra_scp_args = {},
@@ -168,7 +155,7 @@ return {
         -- optionally override the oil buffers window title with custom function: fun(winid: integer): string
         get_win_title = nil,
         -- preview_split: Split direction: "auto", "left", "right", "above", "below".
-        preview_split = "right",
+        preview_split = "above",
         -- This is the config that will be passed to nvim_open_win.
         -- Change values here to customize the layout
         override = function(conf)

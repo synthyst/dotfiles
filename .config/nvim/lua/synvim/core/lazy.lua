@@ -4,6 +4,7 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
 -- Auto-download lazy.nvim if not present
+---@diagnostic disable-next-line : undefined-field
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
     "git",
@@ -23,6 +24,7 @@ require("lazy").setup({
   spec = {
     { import = "synvim.plugins" },      -- Regular plugins
     { import = "synvim.colorschemes" }, -- Theme plugins
+    { import = "synvim.plugins.lang" }  -- Language specific plugins.
   },
   install = {
     missing = true,
