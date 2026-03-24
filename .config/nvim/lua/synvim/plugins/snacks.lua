@@ -13,66 +13,99 @@ return {
   priority = 1000,
   lazy = false,
   keys = {
-    ---@diagnostic disable : undefined-global
-    { "<leader>sf", function() Snacks.picker.files() end,                desc = "Search files" },
-    { "<leader>sv", function() Snacks.picker.git_files() end,            desc = "Search git files" },
-    { "<leader>sg", function() Snacks.picker.grep() end,                 desc = "Search text" },
-    { "<leader>sb", function() Snacks.picker.buffers() end,              desc = "Search buffers" },
-    { "<leader>sh", function() Snacks.picker.help() end,                 desc = "Search help" },
-    { "<leader>sr", function() Snacks.picker.recent() end,               desc = "Search recent files" },
-    { "<leader>sc", function() Snacks.picker.commands() end,             desc = "Search commands" },
-    { "<leader>sk", function() Snacks.picker.keymaps() end,              desc = "Search keymaps" },
-    { "<leader>sd", function() Snacks.picker.diagnostics() end,          desc = "Search diagnostics" },
-    { "<leader>st", function() Snacks.picker.colorschemes() end,         desc = "Search colorschemes" },
-    { "<leader>sn", function() Snacks.picker.notifications() end,        desc = "Search notifications" },
-    { "<leader>sm", function() Snacks.picker.resume() end,               desc = "Resume last search" },
-    { "<leader>s%", function() Snacks.picker.lines() end,                desc = "Search current buffer" },
-    { "<leader>sa", function() Snacks.picker.lsp_symbols() end,          desc = "Search symbols" },
-    { '<leader>s"', function() Snacks.picker.registers() end,            desc = "Search registers" },
-    { "<leader>si", function() Snacks.picker.icons() end,                desc = "Search icons" },
-    { "<leader>s:", function() Snacks.picker.command_history() end,      desc = "Search command history" },
-    { "<leader>s/", function() Snacks.picker.search_history() end,       desc = "Search find history" },
-    { "<leader>sw", function() Snacks.picker.grep_word() end,            desc = "Search word under cursor", mode = { "n", "x" }, },
-    { "<leader>su", function() Snacks.picker.undo() end,                 desc = "Search undo history" },
-    { "gd",         function() Snacks.picker.lsp_definitions() end,      desc = "Goto definition" },
-    { "gD",         function() Snacks.picker.lsp_declarations() end,     desc = "Goto declaration" },
-    { "gr",         function() Snacks.picker.lsp_references() end,       nowait = true,                     desc = "Search references" },
-    { "gI",         function() Snacks.picker.lsp_implementations() end,  desc = "Goto implementation" },
-    { "gy",         function() Snacks.picker.lsp_type_definitions() end, desc = "Goto type definition" },
-    { "gai",        function() Snacks.picker.lsp_incoming_calls() end,   desc = "Calls incoming" },
-    { "gao",        function() Snacks.picker.lsp_outgoing_calls() end,   desc = "Calls outgoing" },
-
-    ---@diagnostic enable : undefined-global
+    { "<leader>sf", function() require('snacks').picker.files() end,                desc = "Search files" },
+    { "<leader>sv", function() require('snacks').picker.git_files() end,            desc = "Search git files" },
+    { "<leader>sg", function() require('snacks').picker.grep() end,                 desc = "Search text" },
+    { "<leader>sb", function() require('snacks').picker.buffers() end,              desc = "Search buffers" },
+    { "<leader>sh", function() require('snacks').picker.help() end,                 desc = "Search help" },
+    { "<leader>sr", function() require('snacks').picker.recent() end,               desc = "Search recent files" },
+    { "<leader>sc", function() require('snacks').picker.commands() end,             desc = "Search commands" },
+    { "<leader>sk", function() require('snacks').picker.keymaps() end,              desc = "Search keymaps" },
+    { "<leader>sd", function() require('snacks').picker.diagnostics() end,          desc = "Search diagnostics" },
+    { "<leader>st", function() require('snacks').picker.colorschemes() end,         desc = "Search colorschemes" },
+    { "<leader>sn", function() require('snacks').picker.notifications() end,        desc = "Search notifications" },
+    { "<leader>sm", function() require('snacks').picker.resume() end,               desc = "Resume last search" },
+    { "<leader>s%", function() require('snacks').picker.lines() end,                desc = "Search current buffer" },
+    { "<leader>sa", function() require('snacks').picker.lsp_symbols() end,          desc = "Search symbols" },
+    { '<leader>s"', function() require('snacks').picker.registers() end,            desc = "Search registers" },
+    { "<leader>si", function() require('snacks').picker.icons() end,                desc = "Search icons" },
+    { "<leader>s:", function() require('snacks').picker.command_history() end,      desc = "Search command history" },
+    { "<leader>s/", function() require('snacks').picker.search_history() end,       desc = "Search find history" },
+    { "<leader>sw", function() require('snacks').picker.grep_word() end,            desc = "Search word under cursor", mode = { "n", "x" }, },
+    { "<leader>su", function() require('snacks').picker.undo() end,                 desc = "Search undo history" },
+    { "gd",         function() require('snacks').picker.lsp_definitions() end,      desc = "Goto definition" },
+    { "gD",         function() require('snacks').picker.lsp_declarations() end,     desc = "Goto declaration" },
+    { "gr",         function() require('snacks').picker.lsp_references() end,       nowait = true,                     desc = "Search references" },
+    { "gI",         function() require('snacks').picker.lsp_implementations() end,  desc = "Goto implementation" },
+    { "gy",         function() require('snacks').picker.lsp_type_definitions() end, desc = "Goto type definition" },
+    { "gai",        function() require('snacks').picker.lsp_incoming_calls() end,   desc = "Calls incoming" },
+    { "gao",        function() require('snacks').picker.lsp_outgoing_calls() end,   desc = "Calls outgoing" },
+    { "<leader>E",  function() require('snacks').explorer.open() end },
+    { "<leader>tt", function() require('snacks').terminal.toggle() end,             desc = "Toggle terminal" },
+    { "<leader>tl", function() require('snacks').terminal.toggle('lazygit') end,    desc = "Toggle lazygit" },
+    { "<leader>tc", function() require('snacks').terminal.toggle('codex') end,      desc = "Toggle codex" },
   },
   opts = {
-    -- bigfile = { enabled = true },
+    bigfile = { enabled = true },
+    explorer = {
+      replace_netrw = false, -- Replace netrw with the snacks explorer
+    },
+
     dashboard = {
-      preset = {
-        keys = {
-          { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
-          { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
-          { icon = " ", key = "e", desc = "Explore", action = function() require('oil').toggle_float('.', { preview = {} }) end },
-          { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
-          { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
-          { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
-          { icon = " ", key = "s", desc = "Restore Session", section = "session" },
-          { icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
-          { icon = " ", key = "q", desc = "Quit", action = ":qa" },
-        },
-        header = [[
-        █████████                        █████   █████  ███                 
-             ███░░░░░███                      ░░███   ░░███  ░░░                          
-      ░███    ░░░  █████ ████ ████████   ░███    ░███  ████  █████████████  
-      ░░█████████ ░░███ ░███ ░░███░░███  ░███    ░███ ░░███ ░░███░░███░░███ 
-       ░░░░░░░░███ ░███ ░███  ░███ ░███  ░░███   ███   ░███  ░███ ░███ ░███ 
-       ███    ░███ ░███ ░███  ░███ ░███   ░░░█████░    ░███  ░███ ░███ ░███ 
-      ░░█████████  ░░███████  ████ █████    ░░███      █████ █████░███ █████
-       ░░░░░░░░░    ░░░░░███ ░░░░ ░░░░░      ░░░      ░░░░░ ░░░░░ ░░░ ░░░░░ 
-                    ███ ░███                                                
-                   ░░██████                                                 
-                    ░░░░░░                                                  
-              ]]
-      }
+      width = 40,
+      sections = function()
+        --           local header = [[
+        --       ████ ██████           █████      ██
+        --      ███████████             █████ 
+        --      █████████ ███████████████████ ███   ███████████
+        --     █████████  ███    █████████████ █████ ██████████████
+        --    █████████ ██████████ █████████ █████ █████ ████ █████
+        --  ███████████ ███    ███ █████████ █████ █████ ████ █████
+        -- ██████  █████████████████████ ████ █████ █████ ████ ██████
+        -- ]]
+        local header = [[
+   .-'''-.    ____     __ ,---.   .--.,---.  ,---..-./`) ,---.    ,---.
+  / _     \   \   \   /  /|    \  |  ||   /  |   |\ .-.')|    \  /    |
+ (`' )/`--'    \  _. /  ' |  ,  \ |  ||  |   |  .'/ `-' \|  ,  \/  ,  |
+(_ o _).        _( )_ .'  |  |\_ \|  ||  | _ |  |  `-'`"`|  |\_   /|  |
+ (_,_). '.  ___(_ o _)'   |  _( )_\  ||  _( )_  |  .---. |  _( )_/ |  |
+.---.  \  :|   |(_,_)'    | (_ o _)  |\ (_ o._) /  |   | | (_ o _) |  |
+\    `-'  ||   `-'  /     |  (_,_)\  | \ (_,_) /   |   | |  (_,_)  |  |
+ \       /  \      /      |  |    |  |  \     /    |   | |  |      |  |
+  `-...-'    `-..-'       '--'    '--'   `---`     '---' '--'      '--'
+
+          ]]
+        local function greeting()
+          local hour = tonumber(vim.fn.strftime("%H"))
+          -- [02:00, 10:00) - morning, [10:00, 18:00) - day, [18:00, 02:00) - evening
+          local part_id = math.floor((hour + 6) / 8) + 1
+          local day_part = ({ "evening", "morning", "afternoon", "evening" })[part_id]
+          local username = os.getenv("USER") or os.getenv("USERNAME") or "Syn"
+          return ("Good %s, %s"):format(day_part, username)
+        end
+
+        -- stylua: ignore
+        return {
+          { padding = 0, align = "center", text = { header, hl = "header" } },
+          { padding = 2, align = "center", text = { greeting(), hl = "header" } },
+          {
+            title = "Actions",
+            indent = 2,
+            padding = 1,
+            { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
+            { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
+            { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})", },
+            -- { icon = " ", key = "e", desc = "Explore", action = ":lua require('oil').toggle_float(nil ,{ preview = {} })" },
+            { icon = " ", key = "e", desc = "Explore", action = ":lua require('mini.files').open()" },
+            { icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy" },
+            { icon = " ", key = "s", desc = "Restore Session", section = "session" },
+            { icon = " ", key = "q", desc = "Quit", action = ":qa" }
+          },
+          { title = "Recent Projects", section = "projects",     indent = 2, padding = 1 },
+          { title = "Recent Files",    section = "recent_files", indent = 2, padding = 2 },
+          { section = "startup" },
+        }
+      end,
     },
     -- explorer = { enabled = true },
     indent = {
@@ -101,11 +134,28 @@ return {
             height = 0,
             border = "none",
             title_pos = "center",
-            { win = "preview", title = "{preview}", height = 9, border = "rounded" },
-            { win = "list",    title = "{title}",   height = 5, border = "rounded" },
-            { win = "input",   title = "{live}",    height = 1, border = "rounded" },
+            { win = "preview", title = "{preview}",      height = 9, border = "rounded" },
+            { win = "list",    title = "Search {title}", height = 5, border = "rounded" },
+            { win = "input",   title = "{live}",         height = 1, border = "rounded" },
           },
         },
+        waterfall = {
+          hidden = { "preview" },
+          layout = {
+            backdrop = false,
+            width = 0.5,
+            min_width = 80,
+            max_width = 100,
+            height = 0.4,
+            min_height = 2,
+            box = "vertical",
+            title = "{title}",
+            title_pos = "center",
+            { win = "list",    border = "none" },
+            { win = "input",   height = 1,          border = "rounded" },
+            { win = "preview", title = "{preview}", height = 0.4,      border = "top" },
+          },
+        }
       },
       win = {
         input = {
@@ -133,7 +183,8 @@ return {
 
       formatters = {
         file = {
-          truncate = "center",
+          truncate = "left",
+          -- filename_first = true,
           min_width = 40,
         },
       },
@@ -151,6 +202,10 @@ return {
             "*.otf",
             "*.ttf",
           },
+        },
+        explorer = {
+          layout = { preset = "sidebar", preview = true },
+          auto_close = false,
         },
         git_files = {
           untracked = true,
@@ -171,18 +226,28 @@ return {
         },
         recent = {
           filter = { cwd = true },
+          layout = { preset = "waterfall" }
+        },
+        icons = {
+          layout = { preset = 'waterfall' }
+        },
+        commands = {
+          layout = { preset = 'waterfall' }
         },
         diagnostics = {
           layout = { preset = "fallacy" },
           focus = "list",
         },
+        colorschemes = {
+          layout = { preset = "waterfall", hidden = {} },
+        },
         keymaps = {
-          layout = { preset = "fallacy" },
+          layout = { preset = "waterfall" },
         },
         buffers = {
           current = false,
           sort_lastused = true,
-          layout = { hidden = { "preview" } },
+          layout = { preset = 'waterfall' },
           win = {
             input = {
               keys = {
@@ -202,7 +267,83 @@ return {
         },
       },
     },
-    notifier = { enabled = true },
+    notifier = {
+      timeout = 3000, -- default timeout in ms
+      width = { min = 40, max = 0.4 },
+      height = { min = 1, max = 0.6 },
+      -- editor margin to keep free. tabline and statusline are taken into account automatically
+      margin = { top = 0, right = 0, bottom = 0 },
+      padding = true,              -- add 1 cell of left/right padding to the notification window
+      gap = 0,                     -- gap between notifications
+      sort = { "level", "added" }, -- sort by level and time
+      -- minimum log level to display. TRACE is the lowest
+      -- all notifications are stored in history
+      level = vim.log.levels.TRACE,
+      icons = {
+        error = " ",
+        warn = " ",
+        info = " ",
+        debug = " ",
+        trace = " ",
+      },
+      ---@diagnostic disable-next-line : unused-local
+      keep = function(notif)
+        return vim.fn.getcmdpos() > 0
+      end,
+      style = {
+        border = 'rounded',
+        wo = {
+          winblend = 5,
+          wrap = true,
+        }
+      },
+      top_down = true,    -- place notifications from top to bottom
+      date_format = "%R", -- time format for notifications
+      -- format for footer when more lines are available
+      -- `%d` is replaced with the number of lines.
+      -- only works for styles with a border
+      ---@type string|boolean
+      more_format = " ↓ %d lines ",
+      refresh = 100, -- refresh at most every 50ms
+    },
+    terminal = {
+      bo = {
+        filetype = "snacks_terminal",
+      },
+      stack = true, -- when enabled, multiple split windows with the same position will be stacked together (useful for terminals)
+      keys = {
+        q = "hide",
+        gf = function(self)
+          local Snacks = require('snacks')
+          local f = vim.fn.findfile(vim.fn.expand("<cfile>"), "**")
+          if f == "" then
+            Snacks.notify.warn("No file under cursor")
+          else
+            self:hide()
+            vim.schedule(function()
+              vim.cmd("e " .. f)
+            end)
+          end
+        end,
+        term_normal = {
+          "<esc>",
+          function(self)
+            ---@diagnostic disable-next-line : undefined-field
+            self.esc_timer = self.esc_timer or (vim.uv or vim.loop).new_timer()
+            if self.esc_timer:is_active() then
+              self.esc_timer:stop()
+              vim.cmd("stopinsert")
+            else
+              self.esc_timer:start(200, 0, function() end)
+              return "<esc>"
+            end
+          end,
+          mode = "t",
+          expr = true,
+          desc = "Double escape to normal mode",
+        },
+      },
+    },
     -- quickfile = { enabled = true },
     scope = {
       underline = true,
@@ -210,12 +351,32 @@ return {
     scroll = {
       enabled = true
     },
-    statuscolumn = { enabled = true },
+    statuscolumn = {
+      left = { 'sign' },
+      right = { "git" },
+      git = {
+        patterns = { "MiniDiffSign" },
+      },
+      refresh = 150, -- refresh at most every 50ms
+    },
     styles = {
       input = {
         backdrop = 45,
+      },
+      notification = {
+        border = 'rounded',
+        zindex = 100,
+        ft = "markdown",
+        wo = {
+          winblend = 5,
+          wrap = false,
+          conceallevel = 2,
+          colorcolumn = "",
+        },
+        bo = { filetype = "snacks_notif" },
       }
-    }
+    },
+    rename = { enabled = true },
     -- words = { enabled = true },
   },
 }

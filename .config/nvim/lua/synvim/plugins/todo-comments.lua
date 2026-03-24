@@ -50,7 +50,8 @@ return {
   keys = {
     { "]t",         function() require("todo-comments").jump_next() end, desc = "Next todo" },
     { "[t",         function() require("todo-comments").jump_prev() end, desc = "Previous todo" },
-    { "<leader>se", function() Snacks.picker.todo_comments() end,        desc = "Todo" },
+    ---@diagnostic disable-next-line : undefined-global
+    { "<leader>se", function() Snacks.picker.todo_comments() end,        desc = "Search todos" },
     { "<leader>xq", "<cmd>TodoQuickFix<CR>",                             desc = "Todo Quickfix" },
   },
 }

@@ -3,7 +3,7 @@
 
 return {
   "folke/which-key.nvim",
-  event = "VeryLazy",
+  keys = { '<leader>', nil },
 
   opts = {
     preset = "helix",
@@ -46,16 +46,22 @@ return {
     wk.add({
       { "<leader>s",      group = "Search" },
       { "<leader>g",      group = "Git" },
-      { "<leader>b",      group = "Buffer/Bookmark" },
+      { "<leader>b",      group = "Buffer" },
       { "<leader>w",      group = "Window" },
       { "<leader>f",      group = "File" },
-      { "<leader>ff",     group = "File Format" },
       { "<leader>x",      group = "Diagnostics" },
       { "<leader>c",      group = "Code" },
-      { "<leader>o",      group = "Obsidian" },
+      { "<leader>o",      group = "Octo" },
       { "<leader>t",      group = "Toggle" },
       { "<leader>n",      group = "Notifications" },
       { "<Space><Space>", group = "Utilites" },
     })
+
+    -- Hide Arrow bookmark index keys from which-key
+    for i = 1, 9 do
+      wk.add({
+        { string.format("<leader>%d", i), desc = "which_key_ignore" },
+      })
+    end
   end,
 }

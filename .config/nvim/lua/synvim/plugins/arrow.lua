@@ -6,7 +6,7 @@ return {
   dependencies = {
     { "nvim-mini/mini.icons" },
   },
-    lazy = true,
+  lazy = true,
 
   opts = {
     -- Show icons in menu
@@ -106,7 +106,7 @@ return {
     for i = 1, 9 do
       vim.keymap.set("n", string.format("<leader>%d", i), function()
         require("arrow.persist").go_to(i)
-      end, { desc = string.format("Bookmark %d", i) })
+      end)
     end
 
 

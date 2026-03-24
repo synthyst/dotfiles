@@ -5,11 +5,8 @@ return {
   "nvim-lualine/lualine.nvim",
   dependencies = {
     "nvim-mini/mini.icons",
-    "lewis6991/gitsigns.nvim",
-    "otavioschwanck/arrow.nvim",
   },
-  lazy = false,
-  -- enabled = false,
+  event = 'BufRead',
   config = function()
     local lualine = require("lualine")
     -- Mode icon map
@@ -25,7 +22,6 @@ return {
     }
     local function arrow()
       local status = require("arrow.statusline").text_for_statusline_with_icons()
-
       return status
     end
 
@@ -36,7 +32,7 @@ return {
         section_separators = { left = '', right = '' },
         always_show_tabline = true,
       },
-      extensions = { 'quickfix', 'lazy' },
+      extensions = { 'quickfix', 'lazy', 'man', 'trouble' },
       sections = {
         -- Left: mode icon
         lualine_a = {
@@ -56,51 +52,47 @@ return {
             'filename',
             file_status = true,
             color = { gui = 'italic' },
-            path = 4,
+            path = 0,
+            shorting_target = 40,
             separator = { right = '' },
             symbols = {
               modified = '~',
-              readonly = '-',
-              unnamed = '',
-              newfile = '',
+              readonly = '@',
+              unnamed = '?',
+              newfile = '!',
             }
+          },
+          {
+            'branch',
+            icon = { '' }
           },
           {
             arrow,
           },
-
-          { 'lazy' },
-          { 'quickfix' },
+          {
+            require("noice").api.status.mode.get,
+            cond = require("noice").api.status.mode.has,
+          },
         },
         -- Middle: truncated file path with modified indicator
         lualine_c = {
           {
             "diff",
-            symbols = { added = "", modified = "", removed = "" },
-            source = function()
-              local gitsigns = vim.b.gitsigns_status_dict
-              if gitsigns then
-                return {
-                  added = gitsigns.added,
-                  modified = gitsigns.changed,
-                  removed = gitsigns.removed,
-                }
-              end
-            end,
-          },
-          {
-            'diagnostics',
-            sections = { 'error', 'warn', 'info', 'hint' },
-            colored = true,
+            symbols = { added = "+", modified = "!", removed = "-" },
           },
         },
         -- Right side: LSP, buffer count, time, filetype
         lualine_x = {
           {
-            'lsp_status',
-            color = { gui = 'italic' },
+            'diagnostics',
+            sections = { 'error', 'warn', 'info', 'hint' },
             colored = true,
-            icon = ' ',
+            diagnostics_color = {
+              error = 'DiagnosticSignError',
+              warn  = 'DiagnosticSignWarn',
+              info  = 'DiagnosticSignInfo',
+              hint  = 'DiagnosticSignHint',
+            },
           },
         },
         lualine_y = {
@@ -120,9 +112,8 @@ return {
           {
             "filetype",
             colored = false,
-            icon_only = true,
-            icon = { align = "left" },
-            padding = { left = 1, right = 1 },
+            separator = { left = '', right = '' },
+            padding = { right = 1, left = 1 },
           },
         },
       },
@@ -131,7 +122,7 @@ return {
           {
             'buffers',
             show_modified_status = true,
-            show_filename_only = true, -- Shows shortened relative path when set to false.
+            show_filename_only = false, -- Shows shortened relative path when set to false.
             use_mode_colors = false,
             max_length = vim.o.columns * 4,
             buffers_color = {
@@ -149,6 +140,7 @@ return {
           {
             'tabs',
             mode = 0,
+            separator = { left = '', right = '' },
             use_mode_colors = true,
             show_modified_status = false,
           },

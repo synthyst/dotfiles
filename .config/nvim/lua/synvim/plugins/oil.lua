@@ -1,6 +1,7 @@
 return {
   'stevearc/oil.nvim',
   -- Optional dependencies
+  enabled = false,
   dependencies = {
     { "nvim-mini/mini.icons", opts = {} },
     {
@@ -222,7 +223,7 @@ return {
       },
     })
   end,
-  vim.keymap.set('n', '<leader>e', function()
-    require('oil').toggle_float(nil ,{ preview = {} })
-  end)
+  -- vim.keymap.set('n', '<leader>e', function()
+  --   require('oil').toggle_float(nil ,{ preview = {} })
+  -- end, { desc = "Explore directory"})
 }

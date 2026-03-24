@@ -3,7 +3,7 @@
 
 return {
   "nvim-treesitter/nvim-treesitter",
-  event = "BufEnter",
+  lazy = false,
   build = ':TSUpdate',
 
   require 'nvim-treesitter'.setup {

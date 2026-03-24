@@ -5,4 +5,6 @@
 **/*hosts.yml
 **/*credentials*
 **/*secrets*
+**/*Session*
+**/*Session.vim*
 .config/gh/hosts.yml

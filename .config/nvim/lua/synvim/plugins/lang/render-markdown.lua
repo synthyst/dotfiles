@@ -7,15 +7,15 @@ return {
   },
   opts = {
     enabled = true,
-    debounce = 150,
+    debounce = 300,
     win_options = {
       conceallevel = { default = vim.o.conceallevel, rendered = 3 },
-      concealcursor = { default = vim.o.concealcursor, rendered = '' },
+      concealcursor = { default = vim.o.concealcursor, rendered = 'n' },
     },
-    render_modes = { 'n', 'c', 't' },
+    render_modes = { 'n' },
     anti_conceal = {
-      enabled = true,
-      disabled_modes = false,
+      enabled = false,
+      disabled_modes = '',
       above = 0,
       below = 0,
       ignore = {
@@ -75,6 +75,10 @@ return {
       enabled = true,
       render_modes = true,
       position = 'center',
+    },
+    completion = {
+      blink = { enabled = true },
+      lsp = { enabled = true }
     },
     bullet = {
       left_pad = 2,

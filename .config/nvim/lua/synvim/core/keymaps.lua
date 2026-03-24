@@ -66,9 +66,19 @@ M.editing_keymaps = function()
   map("v", ">", ">gv", { desc = "Indent" })
 
   map('c', 'jk', '<Esc>', { desc = 'Exit command mode' })
+  map('t', 'jk', '<Esc><Esc>', { desc = "Escape to normal from terminal" })
 
   map("n", "U", "<cmd>redo<CR>", { desc = "Redo" })
   map("n", "J", "mzJ`z", { desc = "Join lines and keep cursor position" })
+
+  map('n', '<leader>cr', vim.lsp.buf.rename, { desc = "Perform rename" })
+  map('n', '<leader>ca', vim.lsp.buf.code_action, { desc = "Perform code action" })
+
+  map('n', 'K', vim.lsp.buf.hover, { desc = "Show docs" })
+  map('n', '<C-k>', vim.lsp.buf.signature_help, { desc = 'Show signature help' })
+
+  map('n', ']d', function() vim.diagnostic.jump({ count = 1, float = true }) end, { desc = 'Next Diagnostic' })
+  map('n', '[d', function() vim.diagnostic.jump({ count = -1, float = true }) end, { desc = 'Previous Diagnostic' })
 
   -- Quickly navigate quickfix files.
   map("n", "[q", ":cprev<CR>", { desc = "Previous Quickfix Item" })
@@ -111,11 +121,7 @@ M.explore_keymaps = function()
       -- If neither exists, fallback to the current working directory
       require("mini.files").open(vim.uv.cwd(), true)
     end
-  end, { desc = "Open mini.files (Directory of Current File or CWD if not exists)" })
-
-  map("n", "<leader>E", function()
-    require("mini.files").open(vim.uv.cwd(), true)
-  end, { desc = "Open mini.files (cwd)" })
+  end, { desc = "Open mini.files" })
 end
 
 -- ============================================================================
@@ -123,7 +129,9 @@ end
 -- ============================================================================
 M.file_keymaps = function()
   map("v", "<leader>ffl", function()
-    vim.lsp.buf.format({ async = true })
+    vim.lsp.buf.format()
+    vim.fn.wait(3, nil, 5)
+    vim.notify("File formatted", vim.log.levels.INFO)
   end, { desc = "Format selection" })
 
   map("n", "<leader>ffl", vim.lsp.buf.format)
@@ -147,8 +155,8 @@ M.file_keymaps = function()
     vim.fn.winrestview(save_view)
     vim.api.nvim_win_set_cursor(0, save_cursor)
 
-    vim.notify("Indentation fixed", vim.log.levels.INFO)
-  end, { desc = "Fix indentation" })
+    vim.notify("File indented", vim.log.levels.INFO)
+  end, { desc = "File Indent" })
   map('n', '<leader>fc', '<cmd>ColorizerToggle<cr>', { desc = 'Colorize File' })
   map('n', "<leader>fa", "<cmd>AerialToggle<cr>", { desc = "File Symbols" })
   map('n', "<leader>fA", "<cmd>AerialNavToggle<cr>", { desc = "File Symbol Float" })

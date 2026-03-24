@@ -3,12 +3,14 @@ return {
   "neanias/everforest-nvim",
   lazy = true,
   config = function()
-    vim.g.everforest_background = "hard"        -- hard, medium, soft
-    vim.g.everforest_transparent_background = 0 -- 0=no, 1=partial, 2=full
-    vim.g.everforest_better_performance = 1
+    -- vim.cmd([[colorscheme everforest]])
 
     require("everforest").setup({
       transparent_background_level = 2,
+      italics = true,
+      ui_contrast = "high",
+      dim_inactive_windows = false,
+      float_style = "dim"
     })
   end,
 }

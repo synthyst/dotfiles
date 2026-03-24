@@ -9,7 +9,7 @@
 # Yazi : File manager.
 alias y='yazi'
 # eza: Modern ls replacement with icons
-alias l='eza -aa --no-quotes --icons=always --git-ignore --git'
+alias l='eza -aa --no-quotes --group-directories-first --icons=always --git-ignore --git'
 alias lsf='eza -a -f --icons=always --no-quotes --git-ignore --git --no-user'
 alias lsd='eza -a -DRTl --level 2 --icons=always --no-quotes --git-ignore --git --no-user'
 alias lsa='eza -a --icons=always --tree --level=3 --no-quotes --git-ignore --git --no-user'
@@ -47,7 +47,7 @@ alias nv='nvim'
 # Reload Zsh configuration and return to home
 alias refr='source ~/.zshrc && termux-reload-settings && cd ~'
 
-alias cp='cp - i'
+alias cp='cp -i'
 alias mv='mv -i'
 alias mkdir='mkdir -p'
 alias ps='ps auxf'

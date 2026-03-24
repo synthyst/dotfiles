@@ -3,13 +3,8 @@
 --
 -- Load core settings first (sets leader key and options)
 require("synvim.core.options")
-
 require("synvim.core.keymaps").setup()
-
 require("synvim.core.autocmds")
-
--- Load lazy.nvim and plugins
 require("synvim.core.lazy")
+require("synvim.core.lsp")
 
--- Apply transparent backgrounds to all UI elements
-require("synvim.core.transparent").setup()

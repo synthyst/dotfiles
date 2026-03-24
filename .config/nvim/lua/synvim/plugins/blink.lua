@@ -1,6 +1,7 @@
 return {
   "saghen/blink.cmp",
-  event = "InsertEnter",
+  event = "BufRead",
+  lazy = true,
   dependencies = {
     "moyiz/blink-emoji.nvim",
     "rafamadriz/friendly-snippets",
@@ -11,7 +12,7 @@ return {
   opts = {
     keymap = {
       preset = "enter",
-      ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+      ["K"] = { "show", "show_documentation", "hide_documentation" },
       ["<C-e>"] = { "hide", "fallback" },
       ["<C-p>"] = { "select_prev", "fallback" },
       ["<C-n>"] = { "select_next", "fallback" },
