@@ -7,11 +7,12 @@ vim.g.maplocalleader = "  "
 
 -- Behavior settings
 -- vim.opt.hidden = true                  -- Allow hidden buffers
-vim.opt.backspace = "eol,start" -- Better backspace behavior
+vim.opt.backspace = "indent,eol,start" -- Better backspace behavior
 -- Basic settings
 vim.opt.autoread = true
 vim.opt.autoindent = true
 vim.opt.copyindent = true
+vim.opt.autochdir = false
 vim.opt.softtabstop = 2
 vim.opt.winborder = 'rounded'
 vim.opt.ssop = "buffers,help,localoptions,options"

@@ -45,6 +45,15 @@ return {
     { "<leader>tl", function() require('snacks').terminal.toggle('lazygit') end,    desc = "Toggle lazygit" },
     { "<leader>tc", function() require('snacks').terminal.toggle('codex') end,      desc = "Toggle codex" },
   },
+  -- init = function()
+  --   vim.api.nvim_create_autocmd('User', {
+  --     pattern = { 'LazyDone', 'VeryLazy' },
+  --     callback = function()
+  --       pcall(vim.cmd.colorscheme, get_colorscheme())
+  --       return vim.g.colors_name == get_colorscheme 'default'
+  --     end,
+  --   })
+  -- end,
   opts = {
     bigfile = { enabled = true },
     explorer = {
@@ -239,6 +248,23 @@ return {
           focus = "list",
         },
         colorschemes = {
+          -- confirm = function(picker, item)
+          --   vim.g.snacks_colors_confirm = true
+          --   ---@diagnostic disable-next-line
+          --   Snacks.picker.sources.colorschemes.confirm(picker, item)
+          --   save_colorscheme(item.text)
+          -- end,
+          -- on_close = function()
+          --   if vim.g.snacks_colors_confirm ~= true then
+          --     pcall(vim.cmd.colorscheme, get_colorscheme())
+          --   end
+          --   vim.g.snacks_colors_confirm = nil
+          -- end,
+          -- on_change = function(_, item)
+          --   if item then
+          --     pcall(vim.cmd.colorscheme, item.text)
+          --   end
+          -- end,
           layout = { preset = "waterfall", hidden = {} },
         },
         keymaps = {
@@ -290,13 +316,7 @@ return {
       keep = function(notif)
         return vim.fn.getcmdpos() > 0
       end,
-      style = {
-        border = 'rounded',
-        wo = {
-          winblend = 5,
-          wrap = true,
-        }
-      },
+      style = "compact",
       top_down = true,    -- place notifications from top to bottom
       date_format = "%R", -- time format for notifications
       -- format for footer when more lines are available

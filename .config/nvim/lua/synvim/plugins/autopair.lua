@@ -1,6 +1,6 @@
 return {
   "windwp/nvim-autopairs",
-  event = { "InsertEnter" },
+  event = { "BufReadPost" },
   dependencies = {
   },
   config = function()

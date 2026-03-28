@@ -7,7 +7,6 @@ return {
     "nvim-treesitter/nvim-treesitter",
     "nvim-mini/mini.icons",
   },
-  event = { "BufReadPost", "BufNewFile" },
   cmd = {
     "AerialToggle",
     "AerialOpen",
@@ -99,10 +98,10 @@ return {
     -- },
 
     -- Highlight settings
-    highlight_mode = "split_width",   -- "split_width", "full_width", "last", "none"
+    highlight_mode = "split_width", -- "split_width", "full_width", "last", "none"
     highlight_closest = true,
     highlight_on_hover = true,
-    highlight_on_jump = 300,   -- ms
+    highlight_on_jump = 300, -- ms
 
     -- Fold code when navigating
     autojump = true,
@@ -150,7 +149,7 @@ return {
     lsp = {
       diagnostics_trigger_update = true,
       update_when_errors = true,
-      update_delay = 300,   -- ms
+      update_delay = 300, -- ms
       priority = {
         rust_analyzer = 10,
         lua_ls = 9,
@@ -162,7 +161,7 @@ return {
 
     -- Treesitter extensions
     treesitter = {
-      update_delay = 300,   -- ms
+      update_delay = 300, -- ms
     },
 
     -- Markdown configuration

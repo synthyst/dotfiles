@@ -4,9 +4,10 @@
 return {
   "nvim-lualine/lualine.nvim",
   dependencies = {
+    "SmiteshP/nvim-navic",
     "nvim-mini/mini.icons",
   },
-  event = 'BufRead',
+  event = 'BufReadPost',
   config = function()
     local lualine = require("lualine")
     -- Mode icon map
@@ -24,15 +25,16 @@ return {
       local status = require("arrow.statusline").text_for_statusline_with_icons()
       return status
     end
+    local navic = require("nvim-navic")
 
     lualine.setup({
       options = {
         globalstatus = true,
-        component_separators = { left = '', right = '' },
+        component_separators = { left = '', right = '' },
         section_separators = { left = '', right = '' },
         always_show_tabline = true,
       },
-      extensions = { 'quickfix', 'lazy', 'man', 'trouble' },
+      -- extensions = { 'quickfix', 'lazy', 'man', 'trouble' },
       sections = {
         -- Left: mode icon
         lualine_a = {
@@ -94,15 +96,28 @@ return {
               hint  = 'DiagnosticSignHint',
             },
           },
+          {
+            'lsp_status',
+            icon = '', -- f013
+            symbols = {
+              -- Standard unicode symbols to cycle through for LSP progress:
+              spinner = { '⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏' },
+              -- Standard unicode symbol for when LSP is done:
+              done = '✓',
+              -- Delimiter inserted between LSP names:
+              separator = ' ',
+            },
+            -- List of LSP names to ignore (e.g., `null-ls`):
+            ignore_lsp = {},
+            -- Display the LSP name
+            show_name = true,
+          }
         },
         lualine_y = {
           {
             'location',
             padding = { left = 0, right = 1 },
             separator = { left = '' },
-          },
-          {
-            'searchcount'
           },
           {
             'selectioncount',
@@ -146,6 +161,13 @@ return {
           },
         }
       },
+      winbar = {
+        lualine_c = {
+          {
+            'aerial',
+          }
+        }
+      }
     })
   end,
 }
