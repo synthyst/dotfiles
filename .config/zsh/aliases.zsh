@@ -128,5 +128,6 @@ alias -s html=termux-open
 # Copy output to clipboard (macOS)
 alias -g C='| termux-clipboard-set'
 
-alias arch='proot-distro archlinux --user syn'
+alias arch='proot-distro login archlinux --user syn'
 alias i='sudo pacman -S'
+alias neo='XDG_CONFIG_HOME=~/dev/ignite/neovim nvim'

@@ -161,13 +161,6 @@ return {
           },
         }
       },
-      winbar = {
-        lualine_c = {
-          {
-            'aerial',
-          }
-        }
-      }
     })
   end,
 }

@@ -18,9 +18,9 @@ vim.lsp.config.lua_ls = {
         globals = { "vim", "nvim" },
       },
       workspace = {
-        checkThirdParty = true,
+        checkThirdParty = false,
         library = {
-          vim.env.VIMRUNTIME,
+          "VIMRUNTIME"
         },
       },
       telemetry = {
