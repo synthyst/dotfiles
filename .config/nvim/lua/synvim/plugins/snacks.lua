@@ -300,6 +300,7 @@ return {
             { icon = "󱎸", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('grep')" },
             { icon = " ", key = "e", desc = "Explore", action = ":lua require('mini.files').open()" },
             { icon = "󰒲 ", key = "l", desc = "Plugins", action = ":Lazy" },
+            { icon = " ", key = "t", desc = "Treesitter", action = ":TSManager" },
             { icon = " ", key = "s", desc = "Restore Session", section = "session" },
             { icon = " ", key = "q", desc = "Quit", action = ":qa" }
           },

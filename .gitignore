@@ -7,4 +7,5 @@
 **/*secrets*
 **/*Session*
 **/*Session.vim*
+**/*.env*
 .config/gh/hosts.yml

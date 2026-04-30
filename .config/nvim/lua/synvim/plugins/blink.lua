@@ -3,7 +3,6 @@ return {
 	event = "BufRead",
 	lazy = true,
 	dependencies = {
-		-- "moyiz/blink-emoji.nvim",
 		"rafamadriz/friendly-snippets",
 		-- "saghen/blink.lib",
 	},
@@ -83,36 +82,36 @@ return {
 				},
 			},
 		},
-		sources = {
-			default = { "lsp", "path", "snippets" },
-			providers = {
-				lsp = {
-					name = "LSP",
-					fallbacks = { "buffer" },
-				},
-				path = {
-					opts = {
-						trailing_slash = true,
-						label_trailing_slash = true,
-						show_hidden_files_by_default = true,
-						-- This limits memory use and responsiveness for very large folders.
-						max_entries = 500,
-					},
-				},
-				snippets = {
-					opts = {
-						-- Whether to use show_condition for filtering snippets
-						use_show_condition = true,
-						-- Whether to show autosnippets in the completion list
-						show_autosnippets = false,
-						-- Whether to prefer docTrig placeholders over trig when expanding regTrig snippets
-						prefer_doc_trig = false,
-						-- Whether to put the snippet description in the label description
-						use_label_description = true,
-					},
-				},
-			},
-		},
+		-- sources = {
+		-- 	default = { "lsp", "buffer", "snippets", "path" },
+		-- 	providers = {
+		-- 		lsp = {
+		-- 			-- fallbacks = { "buffer" },
+		-- 			enabled = true, -- Whether or not to enable the provider
+		-- 		},
+		-- 		path = {
+		-- 			opts = {
+		-- 				trailing_slash = true,
+		-- 				label_trailing_slash = true,
+		-- 				show_hidden_files_by_default = true,
+		-- 				-- This limits memory use and responsiveness for very large folders.
+		-- 				max_entries = 500,
+		-- 			},
+		-- 		},
+		-- 		snippets = {
+		-- 			opts = {
+		-- 				-- Whether to use show_condition for filtering snippets
+		-- 				use_show_condition = true,
+		-- 				-- Whether to show autosnippets in the completion list
+		-- 				show_autosnippets = false,
+		-- 				-- Whether to prefer docTrig placeholders over trig when expanding regTrig snippets
+		-- 				prefer_doc_trig = false,
+		-- 				-- Whether to put the snippet description in the label description
+		-- 				use_label_description = true,
+		-- 			},
+		-- 		},
+		-- 	},
+		-- },
 		fuzzy = {
 			-- Controls which implementation to use for the fuzzy matcher.
 			--
