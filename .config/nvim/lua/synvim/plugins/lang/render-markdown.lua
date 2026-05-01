@@ -4,6 +4,7 @@ return {
 		{ "nvim-treesitter/nvim-treesitter" },
 		{ "nvim-mini/mini.icons" },
 	},
+	ft = { "markdown" },
 	config = function()
 		require("render-markdown").setup({
 			enabled = true,

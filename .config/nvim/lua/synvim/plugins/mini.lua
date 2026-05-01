@@ -2,6 +2,19 @@ return {
 	"nvim-mini/mini.nvim",
 	lazy = false,
 	config = function()
+		require("mini.icons").setup({
+			style = "glyph", -- 'glyph' or 'ascii'
+			default = {},
+			directory = {},
+			extension = {},
+			file = {},
+			filetype = {},
+			lsp = {},
+			os = {},
+		})
+		-- Mock nvim-web-devicons for compatibility with other plugins
+		require("mini.icons").mock_nvim_web_devicons()
+
 		-- mini.files - q file ezplorer
 		require("mini.files").setup({
 			mappings = {
