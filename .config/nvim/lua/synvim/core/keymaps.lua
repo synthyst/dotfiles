@@ -6,8 +6,8 @@ local M = {}
 
 -- Helper function to set keymaps robustly
 local function map(mode, lhs, rhs, opts)
-  local options = vim.tbl_extend("force", { noremap = true, silent = true }, opts or {})
-  vim.keymap.set(mode, lhs, rhs, options)
+	local options = vim.tbl_extend("force", { noremap = true, silent = true }, opts or {})
+	vim.keymap.set(mode, lhs, rhs, options)
 end
 
 -- ============================================================================
@@ -15,38 +15,40 @@ end
 -- ============================================================================
 
 M.navigation_keymaps = function()
-  -- Window splits
-  map("n", "<leader>wv", "<cmd>vsplit<CR>", { desc = "Split vertical" })
-  map("n", "<leader>wH", "<cmd>split<CR>", { desc = "Split horizontal" })
-  map("n", "<leader>wq", "<cmd>close<CR>", { desc = "Close window" })
-  map("n", "<leader>wo", "<cmd>only<CR>", { desc = "Close other windows" })
-  map("n", "<leader>w=", "<C-w>=", { desc = "Equal window sizes" })
+	-- Window splits
+	map("n", "<leader>wv", "<cmd>vsplit<CR>", { desc = "Split vertical" })
+	map("n", "<leader>wH", "<cmd>split<CR>", { desc = "Split horizontal" })
+	map("n", "<leader>wq", "<cmd>close<CR>", { desc = "Close window" })
+	map("n", "<leader>wo", "<cmd>only<CR>", { desc = "Close other windows" })
+	map("n", "<leader>w=", "<C-w>=", { desc = "Equal window sizes" })
 
-  -- Better yank/paste
-  map({ "n", "v", "x" }, "<Space><Space>", '"+', { desc = "System clipboard" })
+	-- Better yank/paste
+	map({ "n", "v", "x" }, "<Space><Space>", '"+', { desc = "System clipboard" })
 
-  -- Window navigation (Ctrl + hjkl)
-  map("n", "<leader>wh", "<C-w>h", { desc = "Move to left window" })
-  map("n", "<leader>wj", "<C-w>j", { desc = "Move to down window" })
-  map("n", "<leader>wk", "<C-w>k", { desc = "Move to up window" })
-  map("n", "<leader>wl", "<C-w>l", { desc = "Move to right window" })
+	-- Window navigation (Ctrl + hjkl)
+	map("n", "<leader>wh", "<C-w>h", { desc = "Move to left window" })
+	map("n", "<leader>wj", "<C-w>j", { desc = "Move to down window" })
+	map("n", "<leader>wk", "<C-w>k", { desc = "Move to up window" })
+	map("n", "<leader>wl", "<C-w>l", { desc = "Move to right window" })
 
-  -- Keymaps for centering cursor and unfolding on search/navigation (add to your init.lua or keymaps file)
-  map('n', 'n', 'nzzzv', { noremap = true, silent = true, desc = 'Next search match (center + unfold)' })
-  map('n', 'N', 'Nzzzv', { noremap = true, silent = true, desc = 'Previous search match (center + unfold)' })
-  map('n', '<C-d>', '<C-d>zz', { noremap = true, silent = true, desc = 'Scroll down (center cursor)' })
-  map('n', '<C-u>', '<C-u>zz', { noremap = true, silent = true, desc = 'Scroll up (center cursor)' })
+	-- Keymaps for centering cursor and unfolding on search/navigation (add to your init.lua or keymaps file)
+	map("n", "n", "nzzzv", { noremap = true, silent = true, desc = "Next search match (center + unfold)" })
+	map("n", "N", "Nzzzv", { noremap = true, silent = true, desc = "Previous search match (center + unfold)" })
+	map("n", "<C-d>", "<C-d>zz", { noremap = true, silent = true, desc = "Scroll down (center cursor)" })
+	map("n", "<C-u>", "<C-u>zz", { noremap = true, silent = true, desc = "Scroll up (center cursor)" })
 
-  -- Window resize
-  map("n", "<C-Up>", "<cmd>resize +2<CR>", { desc = "Increase window height" })
-  map("n", "<C-Down>", "<cmd>resize -2<CR>", { desc = "Decrease window height" })
-  map("n", "<C-Left>", "<cmd>vertical resize -2<CR>", { desc = "Decrease window width" })
-  map("n", "<C-Right>", "<cmd>vertical resize +2<CR>", { desc = "Increase window width" })
+	-- Window resize
+	map("n", "<C-Up>", "<cmd>resize +2<CR>", { desc = "Increase window height" })
+	map("n", "<C-Down>", "<cmd>resize -2<CR>", { desc = "Decrease window height" })
+	map("n", "<C-Left>", "<cmd>vertical resize -2<CR>", { desc = "Decrease window width" })
+	map("n", "<C-Right>", "<cmd>vertical resize +2<CR>", { desc = "Increase window width" })
 
-  -- Buffer navigation
-  map("n", "<leader>bn", "<cmd>bnext<CR>", { desc = "Next buffer" })
-  map("n", "<leader>bp", "<cmd>bprev<CR>", { desc = "Previous buffer" })
-  map("n", "<leader>bd", "<cmd>bdelete<CR>", { desc = "Delete buffer" })
+	-- Buffer navigation
+	map("n", "<leader>bn", "<cmd>bnext<CR>", { desc = "Next buffer" })
+	map("n", "<leader>bp", "<cmd>bprev<CR>", { desc = "Previous buffer" })
+	map("n", "<leader>bd", function()
+		Snacks.bufdelete()
+	end, { desc = "Delete buffer" })
 end
 
 -- ============================================================================
@@ -54,39 +56,43 @@ end
 -- ============================================================================
 
 M.editing_keymaps = function()
-  -- Move lines up/down (Alt + j/k)
-  map("n", "<A-j>", "<cmd>m .+1<CR>==", { desc = "Move line down" })
-  map("n", "<A-k>", "<cmd>m .-2<CR>==", { desc = "Move line up" })
-  map("i", "<A-j>", "<Esc><cmd>m .+1<CR>==gi", { desc = "Move line down" })
-  map("i", "<A-k>", "<Esc><cmd>m .-2<CR>==gi", { desc = "Move line up" })
-  map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
-  map("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
-  -- Indent/unindent in visual mode
-  map("v", "<", "<gv", { desc = "Unindent" })
-  map("v", ">", ">gv", { desc = "Indent" })
+	-- Move lines up/down (Alt + j/k)
+	map("n", "<A-j>", "<cmd>m .+1<CR>==", { desc = "Move line down" })
+	map("n", "<A-k>", "<cmd>m .-2<CR>==", { desc = "Move line up" })
+	map("i", "<A-j>", "<Esc><cmd>m .+1<CR>==gi", { desc = "Move line down" })
+	map("i", "<A-k>", "<Esc><cmd>m .-2<CR>==gi", { desc = "Move line up" })
+	map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
+	map("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
+	-- Indent/unindent in visual mode
+	map("v", "<", "<gv", { desc = "Unindent" })
+	map("v", ">", ">gv", { desc = "Indent" })
 
-  map('c', 'jk', '<Esc>', { desc = 'Exit command mode' })
-  map('t', 'jk', '<Esc><Esc>', { desc = "Escape to normal from terminal" })
+	map("c", "jk", "<Esc>", { desc = "Exit command mode" })
+	map("t", "jk", "<Esc><Esc>", { desc = "Escape to normal from terminal" })
 
-  map("n", "U", "<cmd>redo<CR>", { desc = "Redo" })
-  map("n", "J", "mzJ`z", { desc = "Join lines and keep cursor position" })
+	map("n", "U", "<cmd>redo<CR>", { desc = "Redo" })
+	map("n", "J", "mzJ`z", { desc = "Join lines and keep cursor position" })
 
-  map('n', '<leader>cr', vim.lsp.buf.rename, { desc = "Perform rename" })
-  map('n', '<leader>ca', vim.lsp.buf.code_action, { desc = "Perform code action" })
+	map("n", "<leader>cr", vim.lsp.buf.rename, { desc = "Perform rename" })
+	map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Perform code action" })
 
-  map('n', 'K', vim.lsp.buf.hover, { desc = "Show docs" })
-  map('n', '<C-k>', vim.lsp.buf.signature_help, { desc = 'Show signature help' })
+	map("n", "K", vim.lsp.buf.hover, { desc = "Show docs" })
+	map("n", "<C-k>", vim.lsp.buf.signature_help, { desc = "Show signature help" })
 
-  map('n', ']d', function() vim.diagnostic.jump({ count = 1, float = true }) end, { desc = 'Next Diagnostic' })
-  map('n', '[d', function() vim.diagnostic.jump({ count = -1, float = true }) end, { desc = 'Previous Diagnostic' })
+	map("n", "]d", function()
+		vim.diagnostic.jump({ count = 1, float = true })
+	end, { desc = "Next Diagnostic" })
+	map("n", "[d", function()
+		vim.diagnostic.jump({ count = -1, float = true })
+	end, { desc = "Previous Diagnostic" })
 
-  -- Quickly navigate quickfix files.
-  map("n", "[q", ":cprev<CR>", { desc = "Previous Quickfix Item" })
-  map("n", "]q", ":cnext<CR>", { desc = "Next Quickfix Item" })
+	-- Quickly navigate quickfix files.
+	map("n", "[q", ":cprev<CR>", { desc = "Previous Quickfix Item" })
+	map("n", "]q", ":cnext<CR>", { desc = "Next Quickfix Item" })
 
-  -- Better escape
-  map("i", "jk", "<Esc>", { desc = "Exit insert mode" })
-  map("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Unhighlight" })
+	-- Better escape
+	map("i", "jk", "<Esc>", { desc = "Exit insert mode" })
+	map("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Unhighlight" })
 end
 
 vim.keymap.del("n", "&")
@@ -96,73 +102,77 @@ vim.keymap.del("n", "&")
 -- ============================================================================
 
 M.notify_keymaps = function()
-  -- Notifications Dismiss
-  map("n", "<leader>nd", "<cmd>Noice dismiss<CR> <cmd>NotificationsClear<cr>",
-    { desc = "Dismiss Notifications" })
+	-- Notifications Dismiss
+	map("n", "<leader>nd", "<cmd>Noice dismiss<CR> <cmd>NotificationsClear<cr>", { desc = "Dismiss Notifications" })
 end
-
 
 -- Explorer Keymaps
 M.explore_keymaps = function()
-  -- local MiniFiles = require('mini.files')
-  -- Open the directory of the file currently being edited
-  -- If the file doesn't exist because you maybe switched to a new git branch
-  -- open the current working directory
-  map("n", "<leader>e", function()
-    local buf_name = vim.api.nvim_buf_get_name(0)
-    local dir_name = vim.fn.fnamemodify(buf_name, ":p:h")
-    if vim.fn.filereadable(buf_name) == 1 then
-      -- Pass the full file path to highlight the file
-      require("mini.files").open(buf_name, true)
-    elseif vim.fn.isdirectory(dir_name) == 1 then
-      -- If the directory exists but the file doesn't, open the directory
-      require("mini.files").open(dir_name, true)
-    else
-      -- If neither exists, fallback to the current working directory
-      require("mini.files").open(vim.uv.cwd(), true)
-    end
-  end, { desc = "Open mini.files" })
+	-- local MiniFiles = require('mini.files')
+	-- Open the directory of the file currently being edited
+	-- If the file doesn't exist because you maybe switched to a new git branch
+	-- open the current working directory
+	map("n", "<leader>e", function()
+		local buf_name = vim.api.nvim_buf_get_name(0)
+		local dir_name = vim.fn.fnamemodify(buf_name, ":p:h")
+		if vim.fn.filereadable(buf_name) == 1 then
+			-- Pass the full file path to highlight the file
+			require("mini.files").open(buf_name, true)
+		elseif vim.fn.isdirectory(dir_name) == 1 then
+			-- If the directory exists but the file doesn't, open the directory
+			require("mini.files").open(dir_name, true)
+		else
+			-- If neither exists, fallback to the current working directory
+			require("mini.files").open(vim.uv.cwd(), true)
+		end
+	end, { desc = "Open mini.files" })
 end
 
 -- ============================================================================
 -- FILE KEYMAPS
 -- ============================================================================
 M.file_keymaps = function()
-  map("v", "<leader>ffl", function()
-    vim.lsp.buf.format()
-    vim.fn.wait(3, nil, 5)
-    vim.notify("File formatted", vim.log.levels.INFO)
-  end, { desc = "Format selection" })
+	map("v", "<leader>ffl", function()
+		vim.lsp.buf.format()
+		vim.fn.wait(3, nil, 5)
+		vim.notify("File formatted", vim.log.levels.INFO)
+	end, { desc = "Format selection" })
+	-- Fix indentation manually (preserves content, only fixes indent)
+	map("n", "<leader>ffi", function()
+		-- Save cursor position
+		local save_cursor = vim.api.nvim_win_get_cursor(0)
+		-- Store the view to restore scroll position
+		local save_view = vim.fn.winsaveview()
 
-  map("n", "<leader>ffl", vim.lsp.buf.format)
-  -- Fix indentation manually (preserves content, only fixes indent)
-  map("n", "<leader>ffi", function()
-    -- Save cursor position
-    local save_cursor = vim.api.nvim_win_get_cursor(0)
-    -- Store the view to restore scroll position
-    local save_view = vim.fn.winsaveview()
+		-- Use treesitter indenting if available, otherwise vim's indent
+		if vim.treesitter.highlighter.active[vim.api.nvim_get_current_buf()] then
+			-- Reindent using treesitter
+			vim.cmd("normal! gg=G")
+		else
+			-- Fallback to simple reindent
+			vim.cmd("normal! gg=G")
+		end
 
-    -- Use treesitter indenting if available, otherwise vim's indent
-    if vim.treesitter.highlighter.active[vim.api.nvim_get_current_buf()] then
-      -- Reindent using treesitter
-      vim.cmd("normal! gg=G")
-    else
-      -- Fallback to simple reindent
-      vim.cmd("normal! gg=G")
-    end
+		-- Restore view and cursor
+		vim.fn.winrestview(save_view)
+		vim.api.nvim_win_set_cursor(0, save_cursor)
 
-    -- Restore view and cursor
-    vim.fn.winrestview(save_view)
-    vim.api.nvim_win_set_cursor(0, save_cursor)
-
-    vim.notify("File indented", vim.log.levels.INFO)
-  end, { desc = "File Indent" })
-  map('n', '<leader>fc', '<cmd>ColorizerToggle<cr>', { desc = 'Colorize File' })
-  map('n', "<leader>fa", "<cmd>AerialToggle<cr>", { desc = "File Symbols" })
-  map('n', "<leader>fA", "<cmd>AerialNavToggle<cr>", { desc = "File Symbol Float" })
-  map('n', "<leader>fu", "<cmd>Atone<cr>", { desc = "File Undotree" })
-  map('n', "<leader>fp", "<cmd>Colortils<cr>", { desc = "Pick Color" })
-  map({ 'n', 'v', 'x' }, '<leader>fs', function() require("rip-substitute").sub() end, { desc = "File Subsitute" })
+		vim.notify("File indented", vim.log.levels.INFO)
+	end, { desc = "File Indent" })
+	map("n", "<leader>fc", "<cmd>ColorizerToggle<cr>", { desc = "Colorize File" })
+	map("n", "<leader>fa", "<cmd>AerialToggle<cr>", { desc = "File Symbols" })
+	map("n", "<leader>fA", "<cmd>AerialNavToggle<cr>", { desc = "File Symbol Float" })
+	map("n", "<leader>fu", "<cmd>Atone<cr>", { desc = "File Undotree" })
+	map("n", "<leader>fp", "<cmd>Colortils<cr>", { desc = "Pick Color" })
+	map({ "n", "v", "x" }, "<leader>fs", function()
+		require("rip-substitute").sub()
+	end, { desc = "File Subsitute" })
+	-- local client = vim.lsp.get_client_by_id(event.data.client_id)
+	-- if client and client.supports_method("textDocument/inlayHint") then
+	-- 	map("n", "<leader>fh", function()
+	-- 		vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }), { bufnr = event.buf })
+	-- 	end, "File hints")
+	-- end
 end
 
 -- ============================================================================
@@ -171,14 +181,14 @@ end
 -- ============================================================================
 
 M.setup = function()
-  -- Load keymaps that have NO plugin dependencies immediately
-  M.navigation_keymaps()
-  M.editing_keymaps()
-  M.notify_keymaps()
-  M.explore_keymaps()
-  M.file_keymaps()
-  -- Plugin-dependent keymaps are called from their plugin configs
-  -- See telescope.lua and harpoon.lua for when these are called
+	-- Load keymaps that have NO plugin dependencies immediately
+	M.navigation_keymaps()
+	M.editing_keymaps()
+	M.notify_keymaps()
+	M.explore_keymaps()
+	M.file_keymaps()
+	-- Plugin-dependent keymaps are called from their plugin configs
+	-- See telescope.lua and harpoon.lua for when these are called
 end
 
 return M

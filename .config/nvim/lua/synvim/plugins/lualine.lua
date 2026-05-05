@@ -6,7 +6,7 @@ return {
 	dependencies = {
 		"nvim-mini/mini.icons",
 	},
-	event = "BufReadPost",
+	event = "InsertEnter",
 	config = function()
 		local lualine = require("lualine")
 		-- Mode icon map

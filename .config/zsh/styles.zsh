@@ -32,6 +32,5 @@ zstyle ':completion:*:descriptions' format '[%d]'
 # Example: preview for cd
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --icons --color=always $realpath'
 zstyle ':fzf-tab:complete:ls:*' fzf-preview 'eza -1 --icons --color=always $realpath'   # if you type ls <tab>
-zstyle ':fzf-tab:complete:*:*' fzf-preview 'eza -1 --icons --color=always $realpath'    # broad fallback
 zstyle ':fzf-tab:complete:kill:*' fzf-preview 'ps --pid=$word -o comm='
 zstyle ':fzf-tab:*' fzf-flags --color='fg:#dbdbff,fg+:#dbdbff,bg+:#000000,hl:#0000ff,gutter:#000000,pointer:#0000ff,marker:#0000ff,header:#719872,spinner:#6d6dff,info:#dbdbff,prompt:#dbdbff,query:#dbdbff,border:#dbdbff'
