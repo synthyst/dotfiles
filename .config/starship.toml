@@ -8,7 +8,6 @@ $character
 right_format = """
 $cmd_duration\
 ${custom.remotegit}
-$all
 """
 add_newline = false
 continuation_prompt = '@'
@@ -23,8 +22,9 @@ format = "[$path]($style)[$read_only]($read_only_style) "
 # ── Git Branch ───────────────────────────────────
 [git_branch]
 # format = "[$symbol$branch(:$remote_branch)]($style) "
-format =  "[$symbol$branch]($style)[](black) "
-symbol = "[](black) "
+# format =  "[$symbol$branch]($style)[](black) "
+format = "[ $branch]($style) " 
+symbol = ""
 style = "fg:purple bg:black"
 
 # ── Git Metrics (the +added ~modified -deleted) ──

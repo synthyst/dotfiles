@@ -3,7 +3,7 @@
 
 return {
   "folke/trouble.nvim",
-  dependencies = { "nvim-mini/mini.icons" },
+  dependencies = { "nvim-mini/mini.nvim" },
   cmd = { "Trouble", "TroubleToggle" },
   -- optional = true,
   -- specs = {

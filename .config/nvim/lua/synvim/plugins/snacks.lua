@@ -342,7 +342,24 @@ return {
 		gh = {
 			enabled = true,
 		},
-
+		scope = {
+			underline = true,
+		},
+		scroll = {
+			enabled = true,
+		},
+		statuscolumn = {
+			left = { "sign" },
+			right = { "git" },
+			git = {
+				patterns = { "MiniDiffSign" },
+			},
+			refresh = 150, -- refresh at most every 50ms
+		},
+		rename = { enabled = true },
+		notifier = {
+			top_down = false,
+		},
 		-- explorer = { enabled = true },
 		indent = {
 			indent = {
@@ -366,6 +383,7 @@ return {
 			layouts = {
 				fallacy = {
 					preset = "fallacy",
+					hidden = { "preview" },
 					layout = {
 						box = "vertical",
 						backdrop = false,
@@ -408,14 +426,13 @@ return {
 					width = 0.5,
 					min_width = 80,
 					max_width = 100,
-					height = 0.4,
-					min_height = 2,
+					height = 2,
 					box = "vertical",
 					title = "{title}",
 					title_pos = "center",
+					{ win = "preview", title = "{preview}", height = 0.4, border = "bottom" },
 					{ win = "list", border = "rounded" },
 					{ win = "input", height = 1, border = "rounded" },
-					{ win = "preview", title = "{preview}", height = 0.4, border = "top" },
 				},
 			},
 		},
@@ -546,77 +563,4 @@ return {
 			},
 		},
 	},
-	notifier = {
-		timeout = 3000, -- default timeout in ms
-		width = { min = 40, max = 0.4 },
-		height = { min = 1, max = 0.6 },
-		-- editor margin to keep free. tabline and statusline are taken into account automatically
-		margin = { top = 0, right = 0, bottom = 0 },
-		padding = true, -- add 1 cell of left/right padding to the notification window
-		gap = 0, -- gap between notifications
-		sort = { "level", "added" }, -- sort by level and time
-		-- minimum log level to display. TRACE is the lowest
-		-- all notifications are stored in history
-		level = vim.log.levels.TRACE,
-		icons = {
-			error = " ",
-			warn = " ",
-			info = " ",
-			debug = " ",
-			trace = " ",
-		},
-		---@diagnostic disable-next-line : unused-local
-		keep = function(notif)
-			return vim.fn.getcmdpos() > 0
-		end,
-		style = "compact",
-		top_down = true, -- place notifications from top to bottom
-		date_format = "%R", -- time format for notifications
-		-- format for footer when more lines are available
-		-- `%d` is replaced with the number of lines.
-		-- only works for styles with a border
-		---@type string|boolean
-		more_format = " ↓ %d lines ",
-		refresh = 100, -- refresh at most every 50ms
-	},
-	terminal = {
-		bo = {
-			filetype = "snacks_terminal",
-		},
-		stack = true, -- when enabled, multiple split windows with the same position will be stacked together (useful for terminals)
-	},
-	-- quickfile = { enabled = true },
-	scope = {
-		underline = true,
-	},
-	scroll = {
-		enabled = true,
-	},
-	statuscolumn = {
-		left = { "sign" },
-		right = { "git" },
-		git = {
-			patterns = { "MiniDiffSign" },
-		},
-		refresh = 150, -- refresh at most every 50ms
-	},
-	styles = {
-		input = {
-			backdrop = 45,
-		},
-		notification = {
-			border = "rounded",
-			zindex = 100,
-			ft = "markdown",
-			wo = {
-				winblend = 5,
-				wrap = false,
-				conceallevel = 2,
-				colorcolumn = "",
-			},
-			bo = { filetype = "snacks_notif" },
-		},
-	},
-	rename = { enabled = true },
-	-- words = { enabled = true },
 }

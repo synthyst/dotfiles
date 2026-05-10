@@ -6,8 +6,7 @@ return {
 	event = "BufReadPre",
 	dependencies = {
 		"MunifTanjim/nui.nvim",
-		-- "rcarriga/nvim-notify",
-		"nvim-mini/mini.icons",
+		"nvim-mini/mini.nvim",
 	},
 	config = function()
 		require("noice").setup({
@@ -24,12 +23,17 @@ return {
 					replace = { pattern = "^:s/", icon = " ", lang = "regex", view = "cmdline" },
 					replace_all = { pattern = "^:%%s/", icon = " 󰬳", lang = "regex", view = "cmdline" },
 					input = { view = "cmdline_input", icon = "~> " }, -- Used by input()
+					selectcmd = { view = "cmdline", pattern = "'<,'>s/", icon = "󱈅 ", lang = "regex" },
+					select = { pattern = "'<,'>", icon = "󰒉 ", lang = "vim" },
 				},
 			},
 			messages = {
-				view_search = false,
+				enabled = false,
 			},
 			popupmenu = {
+				enabled = false,
+			},
+			notify = {
 				enabled = false,
 			},
 			lsp = {
@@ -40,9 +44,9 @@ return {
 				signature = { enabled = false },
 				-- override markdown rendering so that **cmp** and other plugins use **Treesitter**
 				override = {
-					["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-					["vim.lsp.util.stylize_markdown"] = true,
-					["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+					["vim.lsp.util.convert_input_to_markdown_lines"] = false,
+					["vim.lsp.util.stylize_markdown"] = false,
+					["cmp.entry.get_documentation"] = false, -- requires hrsh7th/nvim-cmp
 				},
 			},
 			-- you can enable a preset for easier configuration

@@ -1,5 +1,3 @@
-local M = {}
-
 -- ─── Diagnostics ────────────────────────────────────────────────────────────
 
 local diagnostic_icons = {
@@ -40,12 +38,13 @@ vim.diagnostic.config({
 	severity_sort = true,
 })
 
+-- Opens the float
 vim.api.nvim_create_autocmd("CursorHold", {
 	callback = function()
 		vim.diagnostic.open_float(nil, {
 			border = "shadow",
 			focusable = false,
-			header = fals,
+			header = false,
 			severity_sort = true,
 			scope = "cursor",
 			source = "if_many",
@@ -313,5 +312,3 @@ vim.lsp.enable({
 	"zls",
 	"marksman",
 })
-
-return M

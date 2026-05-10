@@ -48,9 +48,10 @@ vim.opt.undolevels = 2000 -- More undo history (default is 1000)
 vim.opt.undodir = vim.fn.stdpath("data") .. "/undo" -- Undo directory
 vim.opt.foldlevel = 99 -- Start with all folds open
 vim.opt.laststatus = 3
+vim.opt.numberwidth = 3
 vim.opt.mousemoveevent = true
 vim.opt.statuscolumn = "%s%=%l%r%=%#StatColSep#│"
-vim.opt.signcolumn = "yes"
+vim.opt.signcolumn = "auto"
 vim.opt.showmode = false
 vim.opt.spell = false
 vim.opt.list = false

@@ -4,7 +4,7 @@
 return {
   "otavioschwanck/arrow.nvim",
   dependencies = {
-    { "nvim-mini/mini.icons" },
+    { "nvim-mini/mini.nvim" },
   },
   lazy = true,
 

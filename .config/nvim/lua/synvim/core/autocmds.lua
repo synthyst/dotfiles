@@ -26,34 +26,11 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
--- https://github.com/folke/snacks.nvim/discussions/663
-local open_dashboard_if_empty_buffer = function()
-	local buf = vim.api.nvim_get_current_buf()
-	local win = vim.api.nvim_get_current_win()
-	local is_empty = vim.api.nvim_buf_get_name(buf) == "" and vim.bo[buf].filetype == "" and not vim.bo[buf].modified
-	if not is_empty then
-		return
-	end
-
-	require("snacks.dashboard").open({ buf = buf, win = win })
-end
-
-_G.close_buffer = function()
-	require("snacks").bufdelete({
-		filter = function(buf)
-			return vim.bo[buf].filetype ~= "snacks_dashboard"
-		end,
-	})
-
-	vim.schedule(open_dashboard_if_empty_buffer)
-end
-
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = "help",
+	pattern = { "help", "quickfix" },
 	group = "SynVim",
 	callback = function()
 		vim.keymap.set("n", "q", "<cmd>quit<cr>")
-		vim.opt_local.rnu = true
 	end,
 })
 
@@ -108,54 +85,22 @@ vim.api.nvim_create_autocmd("User", {
 	end,
 })
 
----@type table<number, {token:lsp.ProgressToken, msg:string, done:boolean}[]>
--- local progress = vim.defaulttable()
--- vim.api.nvim_create_autocmd("LspProgress", {
--- group = "SynVim",
---   ---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
---   callback = function(ev)
---     local client = vim.lsp.get_client_by_id(ev.data.client_id)
---     local value = ev.data.params
---         .value --[[@as {percentage?: number, title?: string, message?: string, kind: "begin" | "report" | "end"}]]
---     if not client or type(value) ~= "table" then
---       return
---     end
---     local p = progress[client.id]
---
---     for i = 1, #p + 1 do
---       if i == #p + 1 or p[i].token == ev.data.params.token then
---         p[i] = {
---           token = ev.data.params.token,
---           msg = ("[%3d%%] %s%s"):format(
---             value.kind == "end" and 100 or value.percentage or 100,
---             value.title or "",
---             value.message and (" **%s**"):format(value.message) or ""
---           ),
---           done = value.kind == "end",
---         }
---         break
---       end
---     end
---
---     local msg = {} ---@type string[]
---     progress[client.id] = vim.tbl_filter(function(v)
---       return table.insert(msg, v.msg) or not v.done
---     end, p)
---
---     local spinner = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" }
---     ---@diagnostic disable-next-line : param-type-mismatch
---     vim.notify(table.concat(msg, "\n"), "info", {
---       id = "lsp_progress",
---       title = client.name,
---       opts = function(notif)
---         notif.icon = #progress[client.id] == 0 and " "
---             ---@diagnostic disable-next-line : undefined-field
---             or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
---       end,
---     })
---   end,
--- })
--- vim.api.nvim_create_autocmd("FileType", {
+vim.api.nvim_create_autocmd("LspProgress", {
+	---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
+	callback = function(ev)
+		local spinner = { "", "", "", "", "", "" }
+		vim.notify(vim.lsp.status(), "info", {
+			id = "lsp_progress",
+			title = "LSP Progress",
+			opts = function(notif)
+				notif.icon = ev.data.params.value.kind == "end" and " "
+					or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
+			end,
+		})
+	end,
+})
+
+---@diagno-- vim.api.nvim_create_autocmd("FileType", {
 --   pattern = 'oil',
 --   callback = function(args)
 --     local bufnr = args.buf
@@ -176,3 +121,46 @@ vim.api.nvim_create_autocmd("User", {
 		require("snacks").rename.on_rename_file(event.data.from, event.data.to)
 	end,
 })
+
+-- ---@type table<number, {token:lsp.ProgressToken, msg:string, done:boolean}[]>
+-- local progress = vim.defaulttable()
+-- vim.api.nvim_create_autocmd("LspProgress", {
+-- 	---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
+-- 	callback = function(ev)
+-- 		local client = vim.lsp.get_client_by_id(ev.data.client_id)
+-- 		local value = ev.data.params.value --[[@as {percentage?: number, title?: string, message?: string, kind: "begin" | "report" | "end"}]]
+-- 		if not client or type(value) ~= "table" then
+-- 			return
+-- 		end
+-- 		local p = progress[client.id]
+--
+-- 		for i = 1, #p + 1 do
+-- 			if i == #p + 1 or p[i].token == ev.data.params.token then
+-- 				p[i] = {
+-- 					token = ev.data.params.token,
+-- 					msg = ("[%3d%%] %s%s"):format(
+-- 						value.kind == "end" and 100 or value.percentage or 100,
+-- 						value.title or "",
+-- 						value.message and (" **%s**"):format(value.message) or ""
+-- 					),
+-- 					done = value.kind == "end",
+-- 				}
+-- 				break
+-- 			end
+-- 		end
+--
+-- 		local msg = {} ---@type string[]
+-- 		progress[client.id] = vim.tbl_filter(function(v)
+-- 			return table.insert(msg, v.msg) or not v.done
+-- 		end, p)
+--
+-- 		local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
+-- 		vim.notify(table.concat(msg, "\n"), "info", {
+-- 			id = "lsp_progress",
+-- 			opts = function(notif)
+-- 				notif.icon = #progress[client.id] == 0 and " "
+-- 					or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
+-- 			end,
+-- 		})
+-- 	end,
+-- })

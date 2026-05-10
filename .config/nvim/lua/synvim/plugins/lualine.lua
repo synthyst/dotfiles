@@ -4,9 +4,9 @@
 return {
 	"nvim-lualine/lualine.nvim",
 	dependencies = {
-		"nvim-mini/mini.icons",
+		"nvim-mini/mini.nvim",
 	},
-	event = "InsertEnter",
+	event = "CursorMoved",
 	config = function()
 		local lualine = require("lualine")
 		-- Mode icon map
@@ -31,6 +31,10 @@ return {
 				component_separators = { left = " ", right = " " },
 				section_separators = { left = "", right = "" },
 				always_show_tabline = true,
+				disabled_filetypes = {
+					statusline = { "snacks_dashboard", "snacks_picker_input", "snacks_picker_list" },
+					tabline = { "snacks_dashboard", "snacks_picker_input", "snacks_picker_list" },
+				},
 			},
 			-- extensions = { 'quickfix', 'lazy', 'man', 'trouble' },
 			sections = {

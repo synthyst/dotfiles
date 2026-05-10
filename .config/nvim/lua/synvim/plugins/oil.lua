@@ -3,7 +3,7 @@ return {
   -- Optional dependencies
   enabled = false,
   dependencies = {
-    { "nvim-mini/mini.icons", opts = {} },
+    { "nvim-mini/mini.nvim", opts = {} },
     {
       "malewicz1337/oil-git.nvim",
       dependencies = { "stevearc/oil.nvim" },

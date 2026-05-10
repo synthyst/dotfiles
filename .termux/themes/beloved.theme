@@ -1,0 +1,36 @@
+# Special
+background = #191724
+foreground = #dbdbff
+cursor = #e8b0d8
+
+# Black (normal)
+color0  = #1f1d2e
+color8  = #26233a
+
+# Red
+color1  = #e060a0
+color9  = #e060a0
+
+# Green
+color2  = #4878c8
+color10 = #4878c8
+
+# Yellow
+color3  = #9966dd
+color11 = #9966dd
+
+# Blue
+color4  = #a0b8f0
+color12 = #a0b8f0
+
+# Magenta
+color5  = #c4a7e7
+color13 = #c4a7e7
+
+# Cyan
+color6  = #D59ACC
+color14 = #D59ACC
+
+# White
+color7  = #dbdbff
+color15 = #bdbdff
