@@ -96,9 +96,9 @@ alias df="duf"
 #  Custom Scripts
 # ───────────────────────────────────────────────────────────────
 # File organizer script
-alias orgctl='zsh ~/dotfiles/scripts/file-organizer.sh'
-alias orgdown='zsh ~/dotfiles/scripts/file-organizer.sh organize'
-alias orgstats='zsh ~/dotfiles/scripts/file-organizer.sh stats'
+alias janitor='zsh ~/dotfiles/scripts/janitor.sh'
+alias janitor work='zsh ~/dotfiles/scripts/janitor.sh organize'
+alias janitor stats='zsh ~/dotfiles/scripts/janitor.sh stats'
 
 # Theme cycler.
 alias themectl='zsh ~/dotfiles/scripts/theme-cycler.sh'

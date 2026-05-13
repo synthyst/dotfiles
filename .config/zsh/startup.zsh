@@ -19,5 +19,5 @@ pgrep -x "sshd" > /dev/null || sshd
 # ───────────────────────────────────────────────────────────────
 # Display neofetch system info in interactive shells only
 if [[ -o interactive ]]; then
-  command -v clear >/dev/null && clear 
+  command -v clear >/dev/null 
 fi
