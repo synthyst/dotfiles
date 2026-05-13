@@ -1,113 +1,172 @@
-#!/usr/bin/env bash
-set -euo pipefail
+#!/data/data/com.termux/files/usr/bin/bash
+# ╔══════════════════════════════════════════════════════════════╗
+# ║              SYNDOT — Dotfiles Installer for Termux          ║
+# ║                    Powered by GNU Stow                       ║
+# ╚══════════════════════════════════════════════════════════════╝
 
-# Essential packages to install
-ESSENTIAL_PACKAGES="zellij starship termux-tools nala tur-repo zoxide yazi eza fd ripgrep fzf zsh neofetch neovim chafa man stow"
+set -e  # Exit immediately on any error
 
-# Colors
-RED="\u001B[1;31m"
-CYAN="\u001B[1;36m"
-MAG="\u001B[1;35m"
-GRN="\u001B[1;32m"
-YEL="\u001B[1;33m"
-BLU="\u001B[1;34m"
-NC="\u001B[0m"
+# ─── Colors ────────────────────────────────────────────────────
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+CYAN='\033[0;36m'
+BOLD='\033[1m'
+RESET='\033[0m'
 
-# 1) ANSI logo for "SYNDOT"
-printf "${CYAN}███████╗${MAG}██╗   ██╗${YEL}███╗   ██╗${GRN}██████╗  ${RED}███████╗${BLU}████████╗${NC}
-"
-printf "${CYAN}██╔════╝${MAG}╚██╗ ██╔╝${YEL}████╗  ██║${GRN}██╔══██╗ ${RED}██╔═══██╗${BLU}╚══██╔══╝${NC}
-"
-printf "${CYAN}███████╗${MAG} ╚████╔╝ ${YEL}██╔██╗ ██║${GRN}██║  ██║ ${RED}██║   ██║${BLU}   ██║   ${NC}
-"
-printf "${CYAN}╚════██║${MAG}  ╚██╔╝  ${YEL}██║╚██╗██║${GRN}██║  ██║ ${RED}██║   ██║${BLU}   ██║   ${NC}
-"
-printf "${CYAN}███████║${MAG}   ██║   ${YEL}██║ ╚████║${GRN}██████╔╝ ${RED}╚██████╔╝${BLU}   ██║   ${NC}
-"
-printf "${CYAN}╚══════╝${MAG}   ╚═╝   ${YEL}╚═╝  ╚═══╝${GRN}╚═════╝  ${RED} ╚═════╝ ${BLU}   ╚═╝   ${NC}
-"
-printf "${GRN}              S Y N D O T${NC}
+# ─── Helpers ───────────────────────────────────────────────────
+info()    { echo -e "${CYAN}${BOLD}[syndot]${RESET} $*"; }
+success() { echo -e "${GREEN}${BOLD}[  ok  ]${RESET} $*"; }
+warn()    { echo -e "${YELLOW}${BOLD}[ warn ]${RESET} $*"; }
+die()     { echo -e "${RED}${BOLD}[ fail ]${RESET} $*"; exit 1; }
 
-"
+banner() {
+  echo -e "${CYAN}${BOLD}"
+  cat <<'EOF'
+  ███████╗██╗   ██╗███╗   ██╗██████╗  ██████╗ ████████╗
+  ██╔════╝╚██╗ ██╔╝████╗  ██║██╔══██╗██╔═══██╗╚══██╔══╝
+  ███████╗ ╚████╔╝ ██╔██╗ ██║██║  ██║██║   ██║   ██║
+  ╚════██║  ╚██╔╝  ██║╚██╗██║██║  ██║██║   ██║   ██║
+  ███████║   ██║   ██║ ╚████║██████╔╝╚██████╔╝   ██║
+  ╚══════╝   ╚═╝   ╚═╝  ╚═══╝╚═════╝  ╚═════╝    ╚═╝
+EOF
+  echo -e "${RESET}"
+  echo -e "  ${BOLD}Dotfiles installer for Termux — powered by GNU Stow${RESET}"
+  echo -e "  ─────────────────────────────────────────────────────\n"
+}
 
-# 2) Forcibly and recursively delete targets in $HOME
-HOME_DIR="${HOME}"
+# ══════════════════════════════════════════════════════════════
+# STEP 0 — Banner
+# ══════════════════════════════════════════════════════════════
+banner
 
-# Paths to nuke
-targets=(
-  "${HOME_DIR}/.config"
-  "${HOME_DIR}/scripts"
-  "${HOME_DIR}/.termux"
-  "${HOME_DIR}/.zshrc"
-  "${HOME_DIR}/.bashrc"
+# ══════════════════════════════════════════════════════════════
+# STEP 1 — Storage & Package Update
+# ══════════════════════════════════════════════════════════════
+info "Setting up Termux storage access..."
+termux-setup-storage
+success "Storage setup done."
+
+info "Updating package lists and upgrading installed packages..."
+pkg update -y && pkg upgrade -y
+success "System updated."
+
+# ══════════════════════════════════════════════════════════════
+# STEP 2 — Add Repos (tur-repo, termux-void)
+#           Must be done before installing packages that live in them
+# ══════════════════════════════════════════════════════════════
+info "Installing extra repositories (tur-repo, termux-void)..."
+pkg install -y tur-repo
+
+curl -sL https://termuxvoid.github.io/repo/install.sh | bash -s -- -s
+
+pkg update -y
+success "Repos added and index refreshed."
+
+# ══════════════════════════════════════════════════════════════
+# STEP 3 — Install All Packages
+# ══════════════════════════════════════════════════════════════
+info "Installing all required packages..."
+
+PACKAGES=(
+  zsh
+  neovim
+  lua-language-server
+  termux-api
+  termux-tools
+  clangd
+  cmake
+  yazi
+  glow
+  git
+  wget
+  tmux
+  bat
+  zoxide
+  eza
+  fzf
+  fzy
+  lazygit
+  gcc
+  man
+  tealdeer
+  starship
+  nala
+  ripgrep
+  fd
+  fastfetch
+  stow
 )
 
-printf "${YEL}Removing existing targets in ~ ...${NC}
-"
-for t in "${targets[@]}"; do
-  if [ -e "$t" ] || [ -L "$t" ]; then
-    chmod -R u+rwX "$t" 2>/dev/null || true
-    rm -rf --one-file-system "$t" 2>/dev/null || rm -rf "$t"
-    printf "${RED}Removed:${NC} %s
-" "$t"
+for pkg in "${PACKAGES[@]}"; do
+  info "  Installing: ${BOLD}${pkg}${RESET}"
+  pkg install -y "$pkg" || warn "  '$pkg' failed — skipping (may not exist in current repos)."
+done
+
+success "All packages installed."
+
+# ══════════════════════════════════════════════════════════════
+# STEP 4 — Clone Dotfiles Repo
+# ══════════════════════════════════════════════════════════════
+DOTFILES_DIR="$HOME/dotfiles"
+
+if [[ -d "$DOTFILES_DIR" ]]; then
+  warn "~/dotfiles already exists — removing before fresh clone..."
+  rm -rf "$DOTFILES_DIR"
+fi
+
+info "Cloning dotfiles from GitHub..."
+git clone https://github.com/synthyst/dotfiles 
+success "Dotfiles cloned to $DOTFILES_DIR"
+
+# ══════════════════════════════════════════════════════════════
+# STEP 5 — Remove Conflicting Configs
+# ══════════════════════════════════════════════════════════════
+info "Removing existing configs that would conflict with stow..."
+
+TARGETS=(
+  "$HOME/.config"
+  "$HOME/.termux"
+  "$HOME/.zshrc"
+  "$HOME/.bashrc"
+  "$HOME/scripts"
+)
+
+for target in "${TARGETS[@]}"; do
+  if [[ -e "$target" || -L "$target" ]]; then
+    rm -rf "$target"
+    success "  Removed: $target"
   else
-    printf "${CYAN}Skip (not present):${NC} %s
-" "$t"
+    warn "  Not found (skipping): $target"
   fi
 done
 
-# 3) Execute `stow .` in ~/dotfiles
-DOTFILES_DIR="${HOME_DIR}/dotfiles"
-if [ ! -d "$DOTFILES_DIR" ]; then
-  printf "${RED}Error:${NC} ~/dotfiles not found. Aborting.
-"
-  exit 1
-fi
+success "Conflict cleanup done."
 
-printf "
-${GRN}Running stow from ${DOTFILES_DIR}${NC}
-"
+# ══════════════════════════════════════════════════════════════
+# STEP 6 — Stow Dotfiles
+# ══════════════════════════════════════════════════════════════
+info "Stowing dotfiles..."
 cd "$DOTFILES_DIR"
 stow .
+success "Dotfiles stowed successfully."
 
-# 4) Source zsh, reload Termux settings, cd ~
-printf "
-${GRN}Finalizing session...${NC}
-"
-if [ -f "${HOME_DIR}/.zshrc" ]; then
-  # shellcheck source=/dev/null
-  . "${HOME_DIR}/.zshrc"
-fi
-
-if command -v termux-reload-settings >/dev/null 2>&1; then
-  termux-reload-settings
-fi
-
-cd "${HOME_DIR}"
-
-# 5) Install packages
-printf "
-${MAG}Installing essential packages...${NC}
-"
-
-# Update package lists first
-printf "${YEL}Updating package repositories...${NC}
-"
-pkg update -y
-
-# Install all packages from ESSENTIAL_PACKAGES variable
-printf "${YEL}Installing: ${ESSENTIAL_PACKAGES}${NC}
-"
-pkg install -y ${ESSENTIAL_PACKAGES}
-
-printf "
-${GRN}✓ All packages installed successfully!${NC}
-"
-# changes thw default shell to zsh.
-printf "
-${GRN} Setting up the shell...${NC}
-"
+# ══════════════════════════════════════════════════════════════
+# STEP 7 — Set Default Shell to Zsh
+# ══════════════════════════════════════════════════════════════
+info "Setting default shell to zsh..."
 chsh -s zsh
+success "Default shell changed to zsh."
 
-printf "${CYAN}Setup complete!${NC}
-"
+# ══════════════════════════════════════════════════════════════
+# DONE
+# ══════════════════════════════════════════════════════════════
+echo ""
+echo -e "${GREEN}${BOLD}╔══════════════════════════════════════════════════╗${RESET}"
+echo -e "${GREEN}${BOLD}║   Syndot install complete! Restart Termux to     ║${RESET}"
+echo -e "${GREEN}${BOLD}║   load your fresh zsh environment. Enjoy!        ║${RESET}"
+echo -e "${GREEN}${BOLD}╚══════════════════════════════════════════════════╝${RESET}"
+echo ""
+
+exit
+

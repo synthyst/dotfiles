@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
-# file-organizer.zsh
+# janitor.zsh
 # Automatically organize files by type into categorized folders
 
 # Colors
@@ -197,7 +197,7 @@ case "$1" in
         create_folders "${2:-$DEFAULT_DEST}"
         ;;
     *)
-        echo "${CYAN}File Organizer${NC}\n"
+        echo "${CYAN}Janitor.zsh ${NC}\n"
         echo "Usage:"
         echo "  ${GREEN}$0 organize [source] [dest]${NC}  - Move files to organized folders"
         echo "  ${GREEN}$0 copy [source] [dest]${NC}      - Copy files (keep originals)"

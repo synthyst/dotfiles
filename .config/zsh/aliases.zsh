@@ -122,12 +122,16 @@ alias -s js='$EDITOR'
 alias -s ts='$EDITOR'
 alias -s html=termux-open
 
+alias gbat="bat --style=numbers,changes --wrap=never"
+
 # Pipe to jq
 # alias -g J='| jq'
-#
-# Copy output to clipboard (macOS)
 alias -g C='| termux-clipboard-set'
 
 alias arch='proot-distro login archlinux --user Syn'
 alias i='sudo pacman -S'
+
+
+# NOTE: DO NOT USE THIS AS YOUR NEOVIM ALIAS. I USE IT FOR A PERSONAL PROJECT.
+# if you're looking for an alias just use 'nv' instead or set your own.
 alias neo='XDG_CONFIG_HOME=~/dev/ignite/neovim nvim'

@@ -70,6 +70,10 @@ export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
 
 
+# Config paths
+export TOPIARY_CONFIG_FILE="$HOME/.config/topiary"
+
+
 
 eval "$(dircolors -b)"  # GNU systems
 # OR for BSD/macOS in Termux:
