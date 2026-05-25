@@ -11,8 +11,8 @@
 ^/README.md
 ^/LICENSE
 ^/synvim.md
-^/general-man.md
 ^/syndot.md
 
 # fonts
 fonts/^.ttf
+^/images/

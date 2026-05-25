@@ -314,7 +314,7 @@ return {
             title = "Actions",
             indent = 2,
             padding = 1,
-            { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('smart')" },
+            { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
             { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
             { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})", },
             -- { icon = " ", key = "e", desc = "Explore", action = ":lua require('oil').toggle_float(nil ,{ preview = {} })" },
@@ -359,6 +359,8 @@ return {
 		rename = { enabled = true },
 		notifier = {
 			top_down = false,
+			style = "compact",
+			level = vim.log.levels.INFO,
 		},
 		-- explorer = { enabled = true },
 		indent = {

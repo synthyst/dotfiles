@@ -17,6 +17,8 @@ eval "$(zoxide init zsh)"
 
 eval "$(starship init zsh)"
 
+eval "$(atuin init zsh)"
+
 # ── Transient Prompt via --profile flag ──────────
 
 autoload -Uz add-zsh-hook

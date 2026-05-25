@@ -29,17 +29,6 @@ return {
 				todo = "rose",
 				warn = "gold",
 
-				git_add = "foam",
-				git_change = "rose",
-				git_delete = "love",
-				git_dirty = "rose",
-				git_ignore = "muted",
-				git_merge = "iris",
-				git_rename = "pine",
-				git_stage = "iris",
-				git_text = "rose",
-				git_untracked = "subtle",
-
 				h1 = "iris",
 				h2 = "foam",
 				h3 = "rose",
@@ -73,7 +62,6 @@ return {
 				SnacksPickerListCursorLine = { bg = "none", bold = true, italic = true },
 				SnacksPickerPreviewCursorLine = { bg = "none", bold = true, italic = true },
 				SnacksPickerPreviewBorder = { fg = "rose" },
-				SnacksPickerLabel = {},
 				SnacksPickerInputBorder = { fg = "iris" },
 				SnacksPickerListBorder = { fg = "subtle", bg = "none" },
 				SnacksPickerBoxBorder = { fg = "highlight_high" },
@@ -144,9 +132,4 @@ return {
 
 		vim.cmd("colorscheme rose-pine-main")
 	end,
-
-	-- config = function(_, opts)
-	-- require("rose-pine").setup(opts)
-	-- vim.cmd("colorscheme rose-pine-main")
-	-- end,
 }

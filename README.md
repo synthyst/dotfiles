@@ -26,7 +26,7 @@ To learn how to use this setup, please refer to the detailed documentation:
 To install Syndot and Synvim, run the following command in your Termux home directory (`~`):
 
 ```bash
-pkg install git stow && git clone https://github.com/SyntacticallySilly/dotfiles.git && bash ~/dotfiles/install.sh
+curl -fsSL https://raw.githubusercontent.com/synthyst/dotfiles/main/install.sh | bash
 ```
 
 This will automatically:

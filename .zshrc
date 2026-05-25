@@ -32,12 +32,9 @@ source ~/dotfiles/.config/zsh/startup.zsh
 source ~/dotfiles/.config/zsh/styles.zsh
 source ~/.env
 
+fpath+=~/.zfunc; autoload -Uz compinit; compinit
+
 # ───────────────────────────────────────────────────────────────
 #  End of Configuration
 # ───────────────────────────────────────────────────────────────
 
-export PATH="$HOME/.cargo/bin:$PATH"
-
-fpath+=~/.zfunc; autoload -Uz compinit; compinit
-
-zstyle ':completion:*' menu select

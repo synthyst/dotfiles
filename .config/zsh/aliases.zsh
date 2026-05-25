@@ -45,7 +45,7 @@ alias nv='nvim'
 #  System Operations
 # ───────────────────────────────────────────────────────────────
 # Reload Zsh configuration and return to home
-alias refr='source ~/.zshrc && termux-reload-settings && cd ~'
+alias refr='source ~/.zshrc && termux-reload-settings'
 
 alias cp='cp -i'
 alias mv='mv -i'
@@ -97,8 +97,8 @@ alias df="duf"
 # ───────────────────────────────────────────────────────────────
 # File organizer script
 alias janitor='zsh ~/dotfiles/scripts/janitor.sh'
-alias janitor work='zsh ~/dotfiles/scripts/janitor.sh organize'
-alias janitor stats='zsh ~/dotfiles/scripts/janitor.sh stats'
+# alias janitor work='zsh ~/dotfiles/scripts/janitor.sh organize'
+# alias janitor stats='zsh ~/dotfiles/scripts/janitor.sh stats'
 
 # Theme cycler.
 alias themectl='zsh ~/dotfiles/scripts/theme-cycler.sh'

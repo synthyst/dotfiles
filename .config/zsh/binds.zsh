@@ -1,17 +1,16 @@
 bindkey -v
 # bindkey -M menuselect '\r' .accept-line
 # bindkey '^?' history-search-backward
-bindkey '!' history-incremental-search-backward
+# bindkey '!' history-incremental-search-backward
 
 # zsh-autosuggestions
-bindkey ',' autosuggest-accept
+# bindkey ',' autosuggest-accept
 
-# random
-bindkey '^[OA' forward-word
+bindkey '/' menu-search
+bindkey '\' menu-select
 
 # do what i mean.
 bindkey '%' edit-command-line
-bindkey '^q' exit
 bindkey -M vicmd 'v' edit-command-line
 
 # Undo/

@@ -7,19 +7,21 @@
 #  Core Plugins (Load Order Critical)
 # ───────────────────────────────────────────────────────────────
 # zsh-autocomplete MUST load first - manages compinit internally
-# zinit light marlonrichert/zsh-autocomplete
+zinit light marlonrichert/zsh-autocomplete
 
-# # Autosuggestions - suggests commands based on history
+# Autosuggestions - suggests commands based on history
 zinit light zsh-users/zsh-autosuggestions
-#
-# # Fzf tab completipn.
-zinit light Aloxaf/fzf-tab
+
+# Fzf tab completipn.
+# zinit light Aloxaf/fzf-tab
 
 # Additional completions for common commands
 zinit light zsh-users/zsh-completions
 
 # Auto-close brackets, quotes, etc.
 zinit light hlissner/zsh-autopair
+
+# zinit load atuinsh/atuin
 
 # Syntax highlighting (load late for performance)
 zinit light zdharma-continuum/fast-syntax-highlighting

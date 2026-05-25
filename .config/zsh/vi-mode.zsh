@@ -17,14 +17,9 @@ RPROMPT=''
 # ───────────────────────────────────────────────────────────────
 # Enable cursor shape changes based on mode
 export VI_MODE_SET_CURSOR=true
-export VI_MODE_CURSOR_NORMAL=2  # Block cursor in normal mode
+export VI_MODE_CURSOR_NORMAL=3  # Block cursor in normal mode
 export VI_MODE_CURSOR_VISUAL=6  # Line cursor in visual mode
 export VI_MODE_CURSOR_INSERT=3  # Beam cursor in insert mode
-
-# ───────────────────────────────────────────────────────────────
-#  Oh My Posh Integration
-# ───────────────────────────────────────────────────────────────
-# Export POSH_VI_MODE variable for prompt display
 
 # Helper function to redraw prompt (respects precmd hooks)
 _omp_redraw_prompt() {

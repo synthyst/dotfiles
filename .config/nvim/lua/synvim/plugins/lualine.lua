@@ -6,7 +6,7 @@ return {
 	dependencies = {
 		"nvim-mini/mini.nvim",
 	},
-	event = "CursorMoved",
+	event = "BufRead",
 	config = function()
 		local lualine = require("lualine")
 		-- Mode icon map
@@ -28,7 +28,7 @@ return {
 		lualine.setup({
 			options = {
 				globalstatus = true,
-				component_separators = { left = " ", right = " " },
+				component_separators = { left = " ", right = " " },
 				section_separators = { left = "", right = "" },
 				always_show_tabline = true,
 				disabled_filetypes = {
@@ -58,7 +58,6 @@ return {
 						color = { gui = "italic" },
 						path = 0,
 						shorting_target = 40,
-						separator = { right = "" },
 						symbols = {
 							modified = "~",
 							readonly = "@",
@@ -73,16 +72,13 @@ return {
 					{
 						arrow,
 					},
-					{
-						require("noice").api.status.mode.get,
-						cond = require("noice").api.status.mode.has,
-					},
 				},
 				-- Middle: truncated file path with modified indicator
 				lualine_c = {
 					{
 						"diff",
-						symbols = { added = "+", modified = "!", removed = "-" },
+						-- symbols = { added = "+", modified = "!", removed = "-" },
+						symbols = { added = "", modified = "", removed = "" },
 					},
 				},
 				-- Right side: LSP, buffer count, time, filetype
@@ -103,7 +99,7 @@ return {
 						icon = "", -- f013
 						symbols = {
 							-- Standard unicode symbols to cycle through for LSP progress:
-							spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" },
+							spinner = { "", "", "", "", "", "" },
 							-- Standard unicode symbol for when LSP is done:
 							done = "✓",
 							-- Delimiter inserted between LSP names:
@@ -124,15 +120,15 @@ return {
 					{
 						"selectioncount",
 					},
-				},
-				lualine_z = {
 					{
 						"filetype",
-						colored = false,
-						separator = { left = "", right = "" },
-						padding = { right = 1, left = 1 },
+						colored = true,
+						icon_only = true,
+						-- separator = { left = "", right = "" },
+						-- padding = { right = 1, left = 1 },
 					},
 				},
+				lualine_z = {},
 			},
 			tabline = {
 				lualine_c = {

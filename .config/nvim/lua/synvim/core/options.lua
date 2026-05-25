@@ -39,8 +39,8 @@ vim.opt.splitbelow = true -- Split below
 vim.opt.splitright = true -- Split right
 vim.opt.cursorline = true -- Highlight current line
 vim.opt.termguicolors = true -- True color support
--- vim.opt.scrolloff = 10                              -- Keep 8 lines visible when scrolling
--- vim.opt.sidescrolloff = 10                          -- Keep 8 columns visible when scrolling
+vim.opt.scrolloff = 10 -- Keep 8 lines visible when scrolling
+vim.opt.sidescrolloff = 10 -- Keep 8 columns visible when scrolling
 vim.opt.updatetime = 500 -- Faster update time (better performance)
 vim.opt.timeoutlen = 250 -- Timeout for key sequences
 vim.opt.cmdheight = 0
@@ -58,3 +58,5 @@ vim.opt.list = false
 vim.opt.fillchars = { eob = " ", fold = "*", foldopen = "-", foldclose = "+", foldsep = " " }
 vim.opt.pumheight = 8 -- Limit completion menu height
 vim.opt.pumblend = 60
+vim.opt.guicursor = "n-c-o:block,i:ver20,v-ve:hor20,a:blinkon700-blinkoff20-blinkwait1"
+-- a:blinkwait:1000-blinkon:1000
