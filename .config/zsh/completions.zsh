@@ -31,6 +31,14 @@ zstyle ':completion:*:*:-command-:*:*' group-order alias builtins functions comm
 # Disable default menu for fzf-tab integration
 zstyle ':completion:*' menu select search
 
+# removes semicolon when entering smth from the history
+zstyle ':autocomplete:*' add-semicolon no
+
+# delays autocompletion for better perfomance
+zstyle ':autocomplete:*' delay 1
+
+zstyle ':autocomplete:*' min-input 3
+
 zstyle ':completion:*:default' select-prompt '%F{black}%K{12}line %l %p%f%k'
 # ───────────────────────────────────────────────────────────────
 #  FZF-Tab Specific Styles
@@ -57,7 +65,7 @@ zstyle -e ':autocomplete:*:*' list-lines 'reply=( $(( LINES / 1  )) )'
 # zstyle ':autocomplete:recent-paths:*' list-lines 10
 #
 # # Override for history search only
-zstyle ':autocomplete:history-incremental-search-backward:*' list-lines 5
+zstyle ':autocomplete:history-incremental-search-backward:*' list-lines 12
 # #
 # # # Override for history menu only
 zstyle ':autocomplete:history-search-backward:*' list-lines 500
@@ -66,11 +74,17 @@ zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %
 zstyle ':completion:*' list-prompt '%SAt %p: Hit TAB for more, or the character to insert%s'
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
 
-zstyle ':transient-prompt:' format '%(?.%F{green}.%F{red})❯%f '
+
+# Show recent dirs unless the current word is empty or equal to an existing directory.
+zstyle -e ':completion:*:directories' fake '
+    [[ -z $PREFIX$SUFFIX || -d $PREFIX$SUFFIX ]] ||
+        +autocomplete:recent-directories
+'
+zstyle ':completion:*:directories' sort no
 
 # Autosuggestions customization
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#63689B,underline"
-ZSH_AUTOSUGGEST_STRATEGY=(history completion) 
+ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion) 
 
 # ───────────────────────────────────────────────────────────────
 #  Custom Completions

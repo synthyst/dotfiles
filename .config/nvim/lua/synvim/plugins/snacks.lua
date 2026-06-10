@@ -13,6 +13,7 @@ return {
 	priority = 1000,
 	lazy = false,
 	keys = {
+		---@diagnostic disable: undefined-global
 		{
 			"<leader>sf",
 			function()
@@ -276,11 +277,9 @@ return {
 	--     end,
 	--   })
 	-- end,
+
 	opts = {
 		bigfile = { enabled = true },
-		-- explorer = {
-		--   replace_netrw = false, -- Replace netrw with the snacks explorer
-		-- },
 
 		dashboard = {
 			width = 40,
@@ -339,15 +338,19 @@ return {
         }
 			end,
 		},
+
 		gh = {
 			enabled = true,
 		},
+
 		scope = {
 			underline = true,
 		},
+
 		scroll = {
 			enabled = true,
 		},
+
 		statuscolumn = {
 			left = { "sign" },
 			right = { "git" },
@@ -356,13 +359,17 @@ return {
 			},
 			refresh = 150, -- refresh at most every 50ms
 		},
+
 		rename = { enabled = true },
+
 		notifier = {
 			top_down = false,
 			style = "compact",
 			level = vim.log.levels.INFO,
 		},
-		-- explorer = { enabled = true },
+
+		explorer = { enabled = true },
+
 		indent = {
 			indent = {
 				only_scope = true,
@@ -375,9 +382,10 @@ return {
 		},
 
 		input = { enabled = true },
+
 		picker = {
-			enabled = true,
 			prompt = ">=",
+			ui_select = true,
 			layout = {
 				preset = "fallacy",
 				reverse = true,
@@ -385,10 +393,9 @@ return {
 			layouts = {
 				fallacy = {
 					preset = "fallacy",
-					hidden = { "preview" },
+					-- hidden = { "preview" },
 					layout = {
 						box = "vertical",
-						backdrop = false,
 						row = -1,
 						width = 0,
 						height = 0,
@@ -399,15 +406,14 @@ return {
 						{ win = "input", title = "{live}", height = 1, border = "rounded" },
 					},
 				},
-				sidebar = {
-					preview = "main",
+				sidefall = {
+					preset = "sidefall",
 					layout = {
-						backdrop = false,
-						width = 40,
-						min_width = 40,
+						width = 32,
+						-- reverse = false,
+						min_width = 15,
 						height = 0,
 						position = "right",
-						border = "none",
 						box = "vertical",
 						{ win = "preview", title = "{preview}", height = 0.4, border = "bottom" },
 						{ win = "list", border = "none" },
@@ -420,148 +426,113 @@ return {
 						},
 					},
 				},
-			},
-			select = {
-				hidden = { "preview" },
-				layout = {
-					backdrop = false,
-					width = 0.5,
-					min_width = 80,
-					max_width = 100,
-					height = 2,
-					box = "vertical",
-					title = "{title}",
-					title_pos = "center",
-					{ win = "preview", title = "{preview}", height = 0.4, border = "bottom" },
-					{ win = "list", border = "rounded" },
-					{ win = "input", height = 1, border = "rounded" },
+				select = {
+					preset = "select",
+					hidden = { "preview" },
+					layout = {
+						width = 0.5,
+						min_width = 80,
+						max_width = 100,
+						height = 0.4,
+						reverse = true,
+						min_height = 2,
+						box = "vertical",
+						title = "{title}",
+						title_pos = "center",
+						{ win = "preview", title = "{preview}", height = 0.4, border = "bottom" },
+						{ win = "list", border = "rounded" },
+						{ win = "input", height = 1, border = "rounded" },
+					},
 				},
 			},
-		},
-		win = {
-			input = {
-				keys = {
-					["<C-j>"] = { "list_down", mode = { "i", "n" } },
-					["<C-k>"] = { "list_up", mode = { "i", "n" } },
-					["<C-n>"] = { "history_forward", mode = { "i", "n" } },
-					["<C-p>"] = { "history_back", mode = { "i", "n" } },
-					["<C-q>"] = { "qflist", mode = { "i", "n" } },
-					["<C-u>"] = { "preview_scroll_up", mode = { "i", "n" } },
-					["<C-d>"] = { "preview_scroll_down", mode = { "i", "n" } },
-					["jk"] = { "cancel", mode = "i" },
+			win = {
+				input = {
+					keys = {
+						["<C-j>"] = { "list_down", mode = { "i", "n" } },
+						["<C-k>"] = { "list_up", mode = { "i", "n" } },
+						["<C-n>"] = { "history_forward", mode = { "i", "n" } },
+						["<C-p>"] = { "history_back", mode = { "i", "n" } },
+						["<C-q>"] = { "qflist", mode = { "i", "n" } },
+						["<C-u>"] = { "preview_scroll_up", mode = { "i", "n" } },
+						["<C-d>"] = { "preview_scroll_down", mode = { "i", "n" } },
+						["jk"] = { "cancel", mode = "i" },
+					},
 				},
 			},
-		},
-		matcher = {
-			fuzzy = true, -- use fuzzy matching
-			smartcase = true, -- use smartcase
-			ignorecase = true, -- use ignorecase
-			filename_bonus = true, -- give bonus for matching file names (last part of the path)
-			-- so this can have a performance impact for large lists and increase memory usage
-			cwd_bonus = false, -- give bonus for matching files in the cwd
-			frecency = true, -- frecency bonus
-		},
-
-		formatters = {
-			file = {
-				truncate = "left",
-				-- filename_first = true,
-				min_width = 40,
+			matcher = {
+				fuzzy = true, -- use fuzzy matching
+				smartcase = true, -- use smartcase
+				ignorecase = true, -- use ignorecase
+				filename_bonus = true, -- give bonus for matching file names (last part of the path)
+				frecency = true, -- frecency bonus
 			},
-		},
-		sources = {
-			files = {
-				hidden = true,
-				ignored = false,
-				exclude = {
-					".git/*",
-					"node_modules",
-					"*.jpg",
-					"*.jpeg",
-					"*.png",
-					"*.svg",
-					"*.otf",
-					"*.ttf",
+			formatters = {
+				file = {
+					truncate = "left",
+					-- filename_first = true,
+					icon_width = 2,
+					min_width = 40,
+					git_status_hl = true,
+				},
+				severity = {
+					icons = true, -- show severity icons
+					level = false, -- show severity level
+					---@type "left"|"right"
+					pos = "left", -- position of the diagnostics
 				},
 			},
-			explorer = {
-				layout = { preset = "sidebar", preview = true },
-				auto_close = false,
-			},
-			git_files = {
-				untracked = true,
-			},
-			grep = {
-				hidden = true,
-				ignored = false,
-				exclude = {
-					".git/*",
-					"node_modules",
-					"*.jpg",
-					"*.jpeg",
-					"*.png",
-					"*.svg",
-					"*.otf",
-					"*.ttf",
-				},
-			},
-			recent = {
-				filter = { cwd = true },
-				layout = { preset = "select" },
+			jump = {
+				reuse_win = true,
+				close = false,
+				match = false,
 			},
 			icons = {
-				layout = { preset = "select" },
-			},
-			commands = {
-				layout = { preset = "select" },
-			},
-			diagnostics = {
-				layout = { preset = "fallacy" },
-				focus = "list",
-			},
-			colorschemes = {
-				-- confirm = function(picker, item)
-				--   vim.g.snacks_colors_confirm = true
-				--   ---@diagnostic disable-next-line
-				--   Snacks.picker.sources.colorschemes.confirm(picker, item)
-				--   save_colorscheme(item.text)
-				-- end,
-				-- on_close = function()
-				--   if vim.g.snacks_colors_confirm ~= true then
-				--     pcall(vim.cmd.colorscheme, get_colorscheme())
-				--   end
-				--   vim.g.snacks_colors_confirm = nil
-				-- end,
-				-- on_change = function(_, item)
-				--   if item then
-				--     pcall(vim.cmd.colorscheme, item.text)
-				--   end
-				-- end,
-				layout = { preset = "select", hidden = {} },
-			},
-			keymaps = {
-				layout = { preset = "select" },
-			},
-			buffers = {
-				current = false,
-				sort_lastused = true,
-				layout = { preset = "select" },
-				win = {
-					input = {
-						keys = {
-							["<C-x>"] = { "bufdelete", mode = { "n", "i" } },
-						},
-					},
-					list = {
-						keys = {
-							["x"] = "bufdelete",
-							["dd"] = "bufdelete",
-						},
-					},
+				tree = {
+					vertical = "|",
+					middle = "|-",
+					last = "╭",
+				},
+				diagnostics = {
+					Error = " ",
+					Hint = "",
+					Info = "",
 				},
 			},
-			lines = {
-				layout = { preset = "fallacy" },
+			sources = {
+				buffers = {
+					layout = "select",
+					current = false,
+					sort_lastused = true,
+				},
+				treesitter = {
+					focus = "list",
+					layout = "sidefall",
+				},
+				lsp_symbols = {
+					focus = "list",
+					layout = "sidefall",
+				},
+				command_history = {
+					layout = "select",
+				},
+				explorer = {
+					layout = { preset = "sidefall", preview = false },
+				},
+				files = {
+					follow = false,
+				},
+				grep = {
+					live = false,
+				},
+				icons = {
+					layout = "select",
+				},
+				undo = {
+					focus = "list",
+				},
+				lines = {
+					layout = "fallacy",
+				},
 			},
 		},
 	},

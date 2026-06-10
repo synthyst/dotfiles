@@ -112,7 +112,7 @@ M.explore_keymaps = function()
 	-- Open the directory of the file currently being edited
 	-- If the file doesn't exist because you maybe switched to a new git branch
 	-- open the current working directory
-	map("n", "<leader>e", function()
+	map("n", "-", function()
 		local buf_name = vim.api.nvim_buf_get_name(0)
 		local dir_name = vim.fn.fnamemodify(buf_name, ":p:h")
 		if vim.fn.filereadable(buf_name) == 1 then

@@ -4,12 +4,12 @@ bindkey -v
 # bindkey '!' history-incremental-search-backward
 
 # zsh-autosuggestions
-# bindkey ',' autosuggest-accept
+bindkey ',' autosuggest-accept
 
 bindkey '/' menu-search
-bindkey '\' menu-select
+bindkey '£' menu-select
+bindkey '^I' menu-select
 
-# do what i mean.
 bindkey '%' edit-command-line
 bindkey -M vicmd 'v' edit-command-line
 

@@ -2,8 +2,8 @@
 return {
 	"rose-pine/neovim",
 	name = "rose-pine",
-	lazy = false,
-	priority = 1000,
+	lazy = true,
+	-- priority = 1000,
 
 	config = function()
 		require("rose-pine").setup({
@@ -130,6 +130,6 @@ return {
 			},
 		})
 
-		vim.cmd("colorscheme rose-pine-main")
+		-- vim.cmd("colorscheme rose-pine-main")
 	end,
 }
