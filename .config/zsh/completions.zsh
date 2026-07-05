@@ -76,10 +76,10 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-
 
 
 # Show recent dirs unless the current word is empty or equal to an existing directory.
-zstyle -e ':completion:*:directories' fake '
-    [[ -z $PREFIX$SUFFIX || -d $PREFIX$SUFFIX ]] ||
-        +autocomplete:recent-directories
-'
+# zstyle -e ':completion:*:directories' fake '
+#     [[ -z $PREFIX$SUFFIX || -d $PREFIX$SUFFIX ]] ||
+#         +autocomplete:recent-directories
+# '
 zstyle ':completion:*:directories' sort no
 
 # Autosuggestions customization

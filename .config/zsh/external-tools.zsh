@@ -44,6 +44,10 @@ function transient-prompt() {
     PROMPT="$SAVED_PROMPT" RPROMPT="$SAVED_RPROMPT" zle .reset-prompt
 }
 
+function set_win_title(){
+    echo -ne "\033]0; $(basename "$PWD") \007"
+}
+starship_precmd_user_func="set_win_title"
 
 autoload -Uz edit-command-line
 zle -N edit-command-line

@@ -61,8 +61,8 @@ M.editing_keymaps = function()
 	map("n", "<A-k>", "<cmd>m .-2<CR>==", { desc = "Move line up" })
 	map("i", "<A-j>", "<Esc><cmd>m .+1<CR>==gi", { desc = "Move line down" })
 	map("i", "<A-k>", "<Esc><cmd>m .-2<CR>==gi", { desc = "Move line up" })
-	map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
-	map("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
+	map("v", "<C-j>", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
+	map("v", "<C-k>", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
 	-- Indent/unindent in visual mode
 	map("v", "<", "<gv", { desc = "Unindent" })
 	map("v", ">", ">gv", { desc = "Indent" })
@@ -71,12 +71,12 @@ M.editing_keymaps = function()
 	map("t", "jk", "<Esc><Esc>", { desc = "Escape to normal from terminal" })
 
 	map("n", "U", "<cmd>redo<CR>", { desc = "Redo" })
-	map("n", "J", "mzJ`z", { desc = "Join lines and keep cursor position" })
+	-- map("n", "J", "mzJ`z", { desc = "Join lines and keep cursor position" })
 
 	map("n", "<leader>cr", vim.lsp.buf.rename, { desc = "Perform rename" })
 	map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Perform code action" })
 
-	map("n", "K", vim.lsp.buf.hover, { desc = "Show docs" })
+	-- map("n", "K", vim.lsp.buf.hover, { desc = "Show docs" })
 	map("n", "<C-k>", vim.lsp.buf.signature_help, { desc = "Show signature help" })
 
 	map("n", "]d", function()
@@ -96,6 +96,7 @@ M.editing_keymaps = function()
 end
 
 vim.keymap.del("n", "&")
+-- vim.keymap.del("n", "J")
 
 -- ============================================================================
 -- NOTIFY KEYMAPS
@@ -112,20 +113,20 @@ M.explore_keymaps = function()
 	-- Open the directory of the file currently being edited
 	-- If the file doesn't exist because you maybe switched to a new git branch
 	-- open the current working directory
-	map("n", "-", function()
-		local buf_name = vim.api.nvim_buf_get_name(0)
-		local dir_name = vim.fn.fnamemodify(buf_name, ":p:h")
-		if vim.fn.filereadable(buf_name) == 1 then
-			-- Pass the full file path to highlight the file
-			require("mini.files").open(buf_name, true)
-		elseif vim.fn.isdirectory(dir_name) == 1 then
-			-- If the directory exists but the file doesn't, open the directory
-			require("mini.files").open(dir_name, true)
-		else
-			-- If neither exists, fallback to the current working directory
-			require("mini.files").open(vim.uv.cwd(), true)
-		end
-	end, { desc = "Open mini.files" })
+	-- map("n", "-", function()
+	-- 	local buf_name = vim.api.nvim_buf_get_name(0)
+	-- 	local dir_name = vim.fn.fnamemodify(buf_name, ":p:h")
+	-- 	if vim.fn.filereadable(buf_name) == 1 then
+	-- 		-- Pass the full file path to highlight the file
+	-- 		require("mini.files").open(buf_name, true)
+	-- 	elseif vim.fn.isdirectory(dir_name) == 1 then
+	-- 		-- If the directory exists but the file doesn't, open the directory
+	-- 		require("mini.files").open(dir_name, true)
+	-- 	else
+	-- 		-- If neither exists, fallback to the current working directory
+	-- 		require("mini.files").open(vim.uv.cwd(), true)
+	-- 	end
+	-- end, { desc = "Open mini.files" })
 end
 
 -- ============================================================================
@@ -162,7 +163,7 @@ M.file_keymaps = function()
 	map("n", "<leader>fc", "<cmd>ColorizerToggle<cr>", { desc = "Colorize File" })
 	map("n", "<leader>fa", "<cmd>AerialToggle<cr>", { desc = "File Symbols" })
 	map("n", "<leader>fA", "<cmd>AerialNavToggle<cr>", { desc = "File Symbol Float" })
-	map("n", "<leader>fu", "<cmd>Atone<cr>", { desc = "File Undotree" })
+	-- map("n", "<leader>fu", "<cmd>Atone<cr>", { desc = "File Undotree" })
 	map("n", "<leader>fp", "<cmd>Colortils<cr>", { desc = "Pick Color" })
 	map({ "n", "v", "x" }, "<leader>fs", function()
 		require("rip-substitute").sub()

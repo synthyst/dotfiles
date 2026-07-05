@@ -22,6 +22,13 @@ return {
 			desc = "Search files",
 		},
 		{
+			"<leader>sq",
+			function()
+				Snacks.picker.pickers()
+			end,
+			desc = "Search Pickers",
+		},
+		{
 			"<leader>sv",
 			function()
 				Snacks.picker.git_files()
@@ -64,13 +71,6 @@ return {
 			desc = "Search commands",
 		},
 		{
-			"<leader>sk",
-			function()
-				Snacks.picker.keymaps()
-			end,
-			desc = "Search keymaps",
-		},
-		{
 			"<leader>sa",
 			function()
 				Snacks.picker.treesitter()
@@ -85,7 +85,7 @@ return {
 			desc = "Search symbols",
 		},
 		{
-			"<leader>sx",
+			"<leader>sz",
 			function()
 				Snacks.picker.zoxide()
 			end,
@@ -127,13 +127,6 @@ return {
 			desc = "Search current buffer",
 		},
 		{
-			'<leader>s"',
-			function()
-				Snacks.picker.registers()
-			end,
-			desc = "Search registers",
-		},
-		{
 			"<leader>si",
 			function()
 				Snacks.picker.icons()
@@ -141,25 +134,11 @@ return {
 			desc = "Search icons",
 		},
 		{
-			"<leader>s:",
-			function()
-				Snacks.picker.command_history()
-			end,
-			desc = "Search command history",
-		},
-		{
-			"<leader>s/",
-			function()
-				Snacks.picker.search_history()
-			end,
-			desc = "Search find history",
-		},
-		{
 			"<leader>sp",
 			function()
-				Snacks.picker.pickers()
+				Snacks.picker.projects()
 			end,
-			desc = "Search pickers",
+			desc = "Search projects",
 		},
 		{
 			"<leader>sw",
@@ -246,37 +225,7 @@ return {
 				Snacks.explorer.open()
 			end,
 		},
-		{
-			"<leader>tt",
-			function()
-				Snacks.terminal.toggle()
-			end,
-			desc = "Toggle terminal",
-		},
-		{
-			"<leader>tl",
-			function()
-				Snacks.terminal.toggle("lazygit")
-			end,
-			desc = "Toggle lazygit",
-		},
-		{
-			"<leader>tc",
-			function()
-				Snacks.terminal.toggle("codex")
-			end,
-			desc = "Toggle codex",
-		},
 	},
-	-- init = function()
-	--   vim.api.nvim_create_autocmd('User', {
-	--     pattern = { 'LazyDone', 'VeryLazy' },
-	--     callback = function()
-	--       pcall(vim.cmd.colorscheme, get_colorscheme())
-	--       return vim.g.colors_name == get_colorscheme 'default'
-	--     end,
-	--   })
-	-- end,
 
 	opts = {
 		bigfile = { enabled = true },
@@ -285,17 +234,28 @@ return {
 			width = 40,
 			sections = function()
 				local header = [[
-   .-'''-.    ____     __ ,---.   .--.,---.  ,---..-./`) ,---.    ,---.
-  / _     \   \   \   /  /|    \  |  ||   /  |   |\ .-.')|    \  /    |
- (`' )/`--'    \  _. /  ' |  ,  \ |  ||  |   |  .'/ `-' \|  ,  \/  ,  |
-(_ o _).        _( )_ .'  |  |\_ \|  ||  | _ |  |  `-'`"`|  |\_   /|  |
- (_,_). '.  ___(_ o _)'   |  _( )_\  ||  _( )_  |  .---. |  _( )_/ |  |
-.---.  \  :|   |(_,_)'    | (_ o _)  |\ (_ o._) /  |   | | (_ o _) |  |
-\    `-'  ||   `-'  /     |  (_,_)\  | \ (_,_) /   |   | |  (_,_)  |  |
- \       /  \      /      |  |    |  |  \     /    |   | |  |      |  |
-  `-...-'    `-..-'       '--'    '--'   `---`     '---' '--'      '--'
+				   .-'''-.    ____     __ ,---.   .--.,---.  ,---..-./`) ,---.    ,---.
+				  / _     \   \   \   /  /|    \  |  ||   /  |   |\ .-.')|    \  /    |
+				 (`' )/`--'    \  _. /  ' |  ,  \ |  ||  |   |  .'/ `-' \|  ,  \/  ,  |
+				(_ o _).        _( )_ .'  |  |\_ \|  ||  | _ |  |  `-'`"`|  |\_   /|  |
+				 (_,_). '.  ___(_ o _)'   |  _( )_\  ||  _( )_  |  .---. |  _( )_/ |  |
+				.---.  \  :|   |(_,_)'    | (_ o _)  |\ (_ o._) /  |   | | (_ o _) |  |
+				\    `-'  ||   `-'  /     |  (_,_)\  | \ (_,_) /   |   | |  (_,_)  |  |
+				 \       /  \      /      |  |    |  |  \     /    |   | |  |      |  |
+				  `-...-'    `-..-'       '--'    '--'   `---`     '---' '--'      '--'
 
-          ]]
+				          ]]
+				-- local header = [[
+				-- ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗
+				-- ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║
+				-- ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║
+				-- ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║
+				-- ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║
+				-- ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝
+				--
+				-- 󰘧 Synthystified 󰘧
+				-- ]]
+
 				local function greeting()
 					local hour = tonumber(vim.fn.strftime("%H"))
 					-- [02:00, 10:00) - morning, [10:00, 18:00) - day, [18:00, 02:00) - evening
@@ -316,9 +276,9 @@ return {
             { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
             { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
             { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})", },
-            -- { icon = " ", key = "e", desc = "Explore", action = ":lua require('oil').toggle_float(nil ,{ preview = {} })" },
+            { icon = " ", key = "e", desc = "Explore", action = ":lua require('oil').toggle_float(nil ,{ preview = {} })" },
             { icon = "󱎸", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('grep')" },
-            { icon = " ", key = "e", desc = "Explore", action = ":lua require('mini.files').open()" },
+            -- { icon = " ", key = "e", desc = "Explore", action = ":lua require('mini.files').open()" },
             { icon = "󰒲 ", key = "l", desc = "Plugins", action = ":Lazy" },
             { icon = " ", key = "t", desc = "Treesitter", action = ":TSManager" },
             { icon = " ", key = "s", desc = "Restore Session", section = "session" },
@@ -335,6 +295,7 @@ return {
           -- },
           { title = "Recent Projects", section = "projects",     indent = 2, padding = 1 },
           { section = "startup" },
+          { section = "terminal", cmd = "eza --icons=always --tree --color=always -L=2", height = 5, padding = 3}
         }
 			end,
 		},
@@ -368,7 +329,9 @@ return {
 			level = vim.log.levels.INFO,
 		},
 
-		explorer = { enabled = true },
+		explorer = {
+			replace_netrw = false,
+		},
 
 		indent = {
 			indent = {
@@ -383,8 +346,32 @@ return {
 
 		input = { enabled = true },
 
+		dim = {
+			scope = {
+				min_size = 5,
+				max_size = 20,
+				siblings = true,
+			},
+		},
+		zen = {
+			toggles = {
+				dim = true,
+				git_signs = false,
+				mini_diff_signs = false,
+				indent = true,
+			},
+			center = true,
+			show = {
+				statusline = true,
+			},
+			zoom = {
+				center = true,
+				show = { statusline = false, tabline = false },
+			},
+		},
+
 		picker = {
-			prompt = ">=",
+			prompt = " ",
 			ui_select = true,
 			layout = {
 				preset = "fallacy",
@@ -477,7 +464,6 @@ return {
 				severity = {
 					icons = true, -- show severity icons
 					level = false, -- show severity level
-					---@type "left"|"right"
 					pos = "left", -- position of the diagnostics
 				},
 			},
@@ -488,8 +474,8 @@ return {
 			},
 			icons = {
 				tree = {
-					vertical = "|",
-					middle = "|-",
+					vertical = "│",
+					middle = "├─",
 					last = "╭",
 				},
 				diagnostics = {
@@ -501,15 +487,18 @@ return {
 			sources = {
 				buffers = {
 					layout = "select",
+					prompt = "",
 					current = false,
 					sort_lastused = true,
 				},
 				treesitter = {
 					focus = "list",
+					prompt = " ",
 					layout = "sidefall",
 				},
 				lsp_symbols = {
 					focus = "list",
+					prompt = " ",
 					layout = "sidefall",
 				},
 				command_history = {
@@ -522,15 +511,19 @@ return {
 					follow = false,
 				},
 				grep = {
-					live = false,
+					prompt = "󱎸",
+					-- live = false,
 				},
 				icons = {
 					layout = "select",
 				},
 				undo = {
+					layout = { preset = "sidefall" },
+					prompt = "",
 					focus = "list",
 				},
 				lines = {
+					prompt = "",
 					layout = "fallacy",
 				},
 			},

@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<mpvExSettings exportDate="2026-06-24 18:15:10">
+  <preferences>
+    <preference key="sub_fonts_folder" type="string" value="content://com.termux.documents/tree/%2Fdata%2Fdata%2Fcom.termux%2Ffiles%2Fhome%2Fdotfiles%2Ffonts" />
+    <preference key="amoled_mode" type="boolean" value="true" />
+    <preference key="audio_volume_normalization" type="boolean" value="true" />
+    <preference key="audio_channels" type="string" value="Auto" />
+    <preference key="custom_buttons_json" type="string" value="{}" />
+    <preference key="gpu_next" type="boolean" value="true" />
+    <preference key="app_theme" type="string" value="Dynamic" />
+    <preference key="hide_player_buttons_background" type="boolean" value="false" />
+    <preference key="repeat_mode" type="string" value="OFF" />
+    <preference key="use_precise_seeking" type="boolean" value="true" />
+    <preference key="ambient_enabled" type="boolean" value="false" />
+    <preference key="enable_lua_scripts" type="boolean" value="true" />
+    <preference key="show_hidden_files" type="boolean" value="false" />
+    <preference key="debanding" type="string" value="CPU" />
+    <preference key="seekbar_style" type="string" value="Simple" />
+    <preference key="video_aspect" type="string" value="Fit" />
+  </preferences>
+  <database>
+    <networkConnections />
+  </database>
+</mpvExSettings>

@@ -1,0 +1,2 @@
+-- require("scripts.beacon").setud()
+-- require("scripts.lsp_hover").setup()

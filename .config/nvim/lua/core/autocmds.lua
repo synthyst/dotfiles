@@ -18,11 +18,9 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 
 vim.api.nvim_create_autocmd("FileType", {
 	group = "SynVim",
-	pattern = "markdown",
+	pattern = { "markdown", "man" },
 	callback = function()
-		vim.opt_local.conceallevel = 1
-		vim.opt_local.wrap = true
-		vim.opt_local.linebreak = true
+		vim.opt_local.wrap = false
 	end,
 })
 
@@ -34,25 +32,25 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
-vim.api.nvim_create_autocmd("InsertEnter", {
-	group = "SynVim",
-	callback = function(args)
-		if vim.bo[args.buf].filetype ~= "markdown" then
-			return
-		end
-		vim.cmd("RenderMarkdown buf_disable")
-	end,
-})
-
-vim.api.nvim_create_autocmd("InsertLeave", {
-	group = "SynVim",
-	callback = function(args)
-		if vim.bo[args.buf].filetype ~= "markdown" then
-			return
-		end
-		vim.cmd("RenderMarkdown buf_enable")
-	end,
-})
+-- vim.api.nvim_create_autocmd("InsertEnter", {
+-- 	group = "SynVim",
+-- 	callback = function(args)
+-- 		if vim.bo[args.buf].filetype ~= "markdown" then
+-- 			return
+-- 		end
+-- 		vim.cmd("RenderMarkdown buf_disable")
+-- 	end,
+-- })
+--
+-- vim.api.nvim_create_autocmd("InsertLeave", {
+-- 	group = "SynVim",
+-- 	callback = function(args)
+-- 		if vim.bo[args.buf].filetype ~= "markdown" then
+-- 			return
+-- 		end
+-- 		vim.cmd("RenderMarkdown buf_enable")
+-- 	end,
+-- })
 
 -- vim.api.nvim_create_autocmd("BufWritePre", {
 -- group = render_markdown_group,

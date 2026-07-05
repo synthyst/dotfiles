@@ -2,6 +2,7 @@ return {
 	"saghen/blink.cmp",
 	event = "BufRead",
 	lazy = true,
+	build = "cargo build --release",
 	dependencies = {
 		"rafamadriz/friendly-snippets",
 		-- "saghen/blink.lib",
@@ -10,9 +11,11 @@ return {
 
 	opts = {
 		keymap = {
-			preset = "enter",
-			["K"] = { "show", "show_documentation", "hide_documentation" },
+			preset = "none",
 			["<C-e>"] = { "hide", "fallback" },
+			["<C-y>"] = { "accept", "select_and_accept", "fallback" },
+			["<C-s>"] = { "snippet_forward", "fallback" },
+			["<C-S>"] = { "snippet_backward", "fallback" },
 			["<C-p>"] = { "select_prev", "fallback" },
 			["<C-n>"] = { "select_next", "fallback" },
 			["<C-k>"] = { "select_prev", "fallback" },
@@ -50,6 +53,7 @@ return {
 				scrollbar = false,
 				border = "none",
 				auto_show = true,
+				auto_show_delay_ms = 300,
 				draw = {
 					snippet_indicator = "@",
 					treesitter = { "lsp", "buffer" },
@@ -81,8 +85,9 @@ return {
 				},
 			},
 		},
-		-- sources = {
-		-- 	default = { "lsp", "buffer", "snippets", "path" },
+		sources = {
+			default = { "lsp", "buffer", "snippets", "path" },
+		},
 		-- 	providers = {
 		-- 		lsp = {
 		-- 			-- fallbacks = { "buffer" },
@@ -112,19 +117,8 @@ return {
 		-- 	},
 		-- },
 		fuzzy = {
-			-- Controls which implementation to use for the fuzzy matcher.
-			--
-			-- 'prefer_rust_with_warning' (Recommended) If available, use the Rust implementation, automatically downloading prebuilt binaries on supported systems. Fallback to the Lua implementation when not available, emitting a warning message.
-			-- 'prefer_rust' If available, use the Rust implementation, automatically downloading prebuilt binaries on supported systems. Fallback to the Lua implementation when not available.
-			-- 'rust' Always use the Rust implementation, automatically downloading prebuilt binaries on supported systems. Error if not available.
-			-- 'lua' Always use the Lua implementation, doesn't download any prebuilt binaries
-			--
-			-- See the prebuilt_binaries section for controlling the download behavior
 			implementation = "lua",
 
-			-- Allows for a number of typos relative to the length of the query
-			-- Set this to 0 to match the behavior of fzf
-			-- Note, this does not apply when using the Lua implementation.
 			max_typos = function(keyword)
 				return math.floor(#keyword / 4)
 			end,

@@ -34,7 +34,7 @@ vim.diagnostic.config({
 		},
 	},
 	underline = true,
-	update_in_insert = false, -- never update diagnostics while typing
+	update_in_insert = false,
 	severity_sort = true,
 })
 
@@ -51,6 +51,8 @@ vim.api.nvim_create_autocmd("CursorHold", {
 		})
 	end,
 })
+
+-- ─── Markview LSP Hover ─────────────────────────────────────────────────────
 
 -- ─── Global LSP defaults ─────────────────────────────────────────────────────
 
@@ -104,8 +106,8 @@ vim.lsp.config("lua_ls", {
 				checkThirdParty = false,
 				library = {
 					vim.env.VIMRUNTIME,
-					"${3rd}/luv/library",
-					vim.fn.stdpath("config") .. "/lua",
+					-- "${3rd}/luv/library",
+					-- vim.fn.stdpath("config") .. "/lua",
 				},
 			},
 			diagnostics = {

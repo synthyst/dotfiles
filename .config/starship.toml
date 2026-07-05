@@ -2,29 +2,30 @@ format = """
 $directory\
 $git_branch\
 $git_metrics\
-$git_status\
 $character
 """
 right_format = """
 $cmd_duration\
-${custom.remotegit}
+$git_state\
+$git_status\
+$all
 """
-add_newline = false
+add_newline = true
 continuation_prompt = '@'
 
 # ── Directory (italic, truncated to 3) ───────────
 [directory]
 truncation_length = 3
 truncation_symbol = ""
-style = "italic green"
-format = "[$path]($style)[$read_only]($read_only_style) "
+style = "italic fg:green bg:black"
+format = "[](black)[$path]($style)[$read_only]($read_only_style)[](black)"
 
 # ── Git Branch ───────────────────────────────────
 [git_branch]
 # format = "[$symbol$branch(:$remote_branch)]($style) "
-# format =  "[$symbol$branch]($style)[](black) "
-format = "[ $branch]($style) " 
-symbol = ""
+format =  "[$symbol$branch]($style)[](black) "
+symbol = " "
+# ignore_branches = ["master", "main"]
 style = "fg:purple bg:black"
 
 # ── Git Metrics (the +added ~modified -deleted) ──
@@ -35,65 +36,17 @@ added_style = "green"
 deleted_style = "red"
 only_nonzero_diffs = true
 
-# ── Git Status ───────────────────────────────────
-[git_status]
-disabled = true
-format = "([$all_status$ahead_behind]($style) )"
-style = "cyan"
-
-# ── Remote Repo ───────────────────────────────────
-[custom.remotegit]
-description = "Display symbol for remote Git server"
-command = """
-GIT_REMOTE=$(command git ls-remote --get-url 2> /dev/null)
-if [[ "$GIT_REMOTE" =~ "github" ]]; then
-    GIT_REMOTE_SYMBOL=" "
-elif [[ "$GIT_REMOTE" =~ "gitlab" ]]; then
-    GIT_REMOTE_SYMBOL=" "
-elif [[ "$GIT_REMOTE" =~ "bitbucket" ]]; then
-    GIT_REMOTE_SYMBOL=" "
-elif [[ "$GIT_REMOTE" =~ "git" ]]; then
-    GIT_REMOTE_SYMBOL=" "
-else
-    GIT_REMOTE_SYMBOL=" "
-fi
-echo "$GIT_REMOTE_SYMBOL "
-"""
-when = "git rev-parse --is-inside-work-tree 2> /dev/null"
-format = "$output"
-require_repo = true
-ignore_timeout = true
-
-
-# ── Git Worktree ───────────────────────────────────
-[custom.git_worktree]
-description = "Show indicator when inside a git worktree"
-command = """
-if git rev-parse --git-dir >/dev/null 2>&1; then
-      common_dir=$(git rev-parse --path-format=absolute --git-common-dir 2>/dev/null)
-      git_dir=$(git rev-parse --path-format=absolute --git-dir 2>/dev/null)
-      if [ "$common_dir" != "$git_dir" ]; then
-            echo "⛓ "
-      fi
-fi
-"""
-when = "git rev-parse --is-inside-work-tree >/dev/null 2>&1"
-format = " ([$output ]($style))"
-style = "bold green"
-require_repo = true
-ignore_timeout = true
-
 # ── Prompt Character ─────────────────────────────
 [character]
-success_symbol = "[>=](bold green)"
-error_symbol = "[<=](bold red)"
-vimcmd_symbol = "[ ](bold fg:yellow)"
+success_symbol = "[>](bold green)"
+error_symbol = "[>](bold red)"
+vimcmd_symbol = "[](bold fg:yellow)"
 
 # ── Command Duration (right side) ────────────────
 [cmd_duration]
 min_time = 2000
-format = "[ $duration]($style)"
-style = "yellow"
+format = "[](black)[ $duration]($style)"
+style = "fg:yellow bg:black"
 
 [profiles]
 transient = """

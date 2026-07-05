@@ -155,6 +155,30 @@ _arguments "${_arguments_options[@]}" : \
 '--help[Print help]' \
 && ret=0
 ;;
+(statusline)
+_arguments "${_arguments_options[@]}" : \
+'--profile=[]:PROFILE:_default' \
+'-s+[The status code of the previously run command as an unsigned or signed 32bit integer]:STATUS_CODE:_default' \
+'--status=[The status code of the previously run command as an unsigned or signed 32bit integer]:STATUS_CODE:_default' \
+'*--pipestatus=[Bash, Fish and Zsh support returning codes for each process in a pipeline]:PIPESTATUS:_default' \
+'-w+[The width of the current interactive terminal]:TERMINAL_WIDTH:_default' \
+'--terminal-width=[The width of the current interactive terminal]:TERMINAL_WIDTH:_default' \
+'-p+[The path that the prompt should render for]:PATH:_files' \
+'--path=[The path that the prompt should render for]:PATH:_files' \
+'-P+[The logical path that the prompt should render for. This path should be a virtual/logical representation of the PATH argument]:LOGICAL_PATH:_files' \
+'--logical-path=[The logical path that the prompt should render for. This path should be a virtual/logical representation of the PATH argument]:LOGICAL_PATH:_files' \
+'-d+[The execution duration of the last command, in milliseconds]:CMD_DURATION:_default' \
+'--cmd-duration=[The execution duration of the last command, in milliseconds]:CMD_DURATION:_default' \
+'-k+[The keymap of fish/zsh/cmd]:KEYMAP:_default' \
+'--keymap=[The keymap of fish/zsh/cmd]:KEYMAP:_default' \
+'-j+[The number of currently running jobs]:JOBS:_default' \
+'--jobs=[The number of currently running jobs]:JOBS:_default' \
+'--shlvl=[The current value of SHLVL, for shells that mis-handle it in \$()]:SHLVL:_default' \
+'-h[Print help]' \
+'--help[Print help]' \
+':provider -- The statusline provider to use:(claude-code)' \
+&& ret=0
+;;
 (time)
 _arguments "${_arguments_options[@]}" : \
 '-h[Print help]' \
@@ -199,7 +223,7 @@ _arguments "${_arguments_options[@]}" : \
 ;;
 (help)
 _arguments "${_arguments_options[@]}" : \
-":: :_starship__help_commands" \
+":: :_starship__subcmd__help_commands" \
 "*::: :->help" \
 && ret=0
 
@@ -249,6 +273,10 @@ _arguments "${_arguments_options[@]}" : \
 _arguments "${_arguments_options[@]}" : \
 && ret=0
 ;;
+(statusline)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
 (time)
 _arguments "${_arguments_options[@]}" : \
 && ret=0
@@ -291,6 +319,7 @@ _starship_commands() {
 'print-config:Prints the computed starship configuration' \
 'prompt:Prints the full starship prompt' \
 'session:Generate random session key' \
+'statusline:Prints the statusline with a specific profile' \
 'time:Prints time in milliseconds' \
 'timings:Prints timings of all active modules' \
 'toggle:Toggle a given starship module' \
@@ -299,33 +328,33 @@ _starship_commands() {
     )
     _describe -t commands 'starship commands' commands "$@"
 }
-(( $+functions[_starship__bug-report_commands] )) ||
-_starship__bug-report_commands() {
+(( $+functions[_starship__subcmd__bug-report_commands] )) ||
+_starship__subcmd__bug-report_commands() {
     local commands; commands=()
     _describe -t commands 'starship bug-report commands' commands "$@"
 }
-(( $+functions[_starship__completions_commands] )) ||
-_starship__completions_commands() {
+(( $+functions[_starship__subcmd__completions_commands] )) ||
+_starship__subcmd__completions_commands() {
     local commands; commands=()
     _describe -t commands 'starship completions commands' commands "$@"
 }
-(( $+functions[_starship__config_commands] )) ||
-_starship__config_commands() {
+(( $+functions[_starship__subcmd__config_commands] )) ||
+_starship__subcmd__config_commands() {
     local commands; commands=()
     _describe -t commands 'starship config commands' commands "$@"
 }
-(( $+functions[_starship__config-schema_commands] )) ||
-_starship__config-schema_commands() {
+(( $+functions[_starship__subcmd__config-schema_commands] )) ||
+_starship__subcmd__config-schema_commands() {
     local commands; commands=()
     _describe -t commands 'starship config-schema commands' commands "$@"
 }
-(( $+functions[_starship__explain_commands] )) ||
-_starship__explain_commands() {
+(( $+functions[_starship__subcmd__explain_commands] )) ||
+_starship__subcmd__explain_commands() {
     local commands; commands=()
     _describe -t commands 'starship explain commands' commands "$@"
 }
-(( $+functions[_starship__help_commands] )) ||
-_starship__help_commands() {
+(( $+functions[_starship__subcmd__help_commands] )) ||
+_starship__subcmd__help_commands() {
     local commands; commands=(
 'bug-report:Create a pre-populated GitHub issue with information about your configuration' \
 'completions:Generate starship shell completions for your shell to stdout' \
@@ -337,6 +366,7 @@ _starship__help_commands() {
 'print-config:Prints the computed starship configuration' \
 'prompt:Prints the full starship prompt' \
 'session:Generate random session key' \
+'statusline:Prints the statusline with a specific profile' \
 'time:Prints time in milliseconds' \
 'timings:Prints timings of all active modules' \
 'toggle:Toggle a given starship module' \
@@ -345,123 +375,133 @@ _starship__help_commands() {
     )
     _describe -t commands 'starship help commands' commands "$@"
 }
-(( $+functions[_starship__help__bug-report_commands] )) ||
-_starship__help__bug-report_commands() {
+(( $+functions[_starship__subcmd__help__subcmd__bug-report_commands] )) ||
+_starship__subcmd__help__subcmd__bug-report_commands() {
     local commands; commands=()
     _describe -t commands 'starship help bug-report commands' commands "$@"
 }
-(( $+functions[_starship__help__completions_commands] )) ||
-_starship__help__completions_commands() {
+(( $+functions[_starship__subcmd__help__subcmd__completions_commands] )) ||
+_starship__subcmd__help__subcmd__completions_commands() {
     local commands; commands=()
     _describe -t commands 'starship help completions commands' commands "$@"
 }
-(( $+functions[_starship__help__config_commands] )) ||
-_starship__help__config_commands() {
+(( $+functions[_starship__subcmd__help__subcmd__config_commands] )) ||
+_starship__subcmd__help__subcmd__config_commands() {
     local commands; commands=()
     _describe -t commands 'starship help config commands' commands "$@"
 }
-(( $+functions[_starship__help__config-schema_commands] )) ||
-_starship__help__config-schema_commands() {
+(( $+functions[_starship__subcmd__help__subcmd__config-schema_commands] )) ||
+_starship__subcmd__help__subcmd__config-schema_commands() {
     local commands; commands=()
     _describe -t commands 'starship help config-schema commands' commands "$@"
 }
-(( $+functions[_starship__help__explain_commands] )) ||
-_starship__help__explain_commands() {
+(( $+functions[_starship__subcmd__help__subcmd__explain_commands] )) ||
+_starship__subcmd__help__subcmd__explain_commands() {
     local commands; commands=()
     _describe -t commands 'starship help explain commands' commands "$@"
 }
-(( $+functions[_starship__help__help_commands] )) ||
-_starship__help__help_commands() {
+(( $+functions[_starship__subcmd__help__subcmd__help_commands] )) ||
+_starship__subcmd__help__subcmd__help_commands() {
     local commands; commands=()
     _describe -t commands 'starship help help commands' commands "$@"
 }
-(( $+functions[_starship__help__init_commands] )) ||
-_starship__help__init_commands() {
+(( $+functions[_starship__subcmd__help__subcmd__init_commands] )) ||
+_starship__subcmd__help__subcmd__init_commands() {
     local commands; commands=()
     _describe -t commands 'starship help init commands' commands "$@"
 }
-(( $+functions[_starship__help__module_commands] )) ||
-_starship__help__module_commands() {
+(( $+functions[_starship__subcmd__help__subcmd__module_commands] )) ||
+_starship__subcmd__help__subcmd__module_commands() {
     local commands; commands=()
     _describe -t commands 'starship help module commands' commands "$@"
 }
-(( $+functions[_starship__help__preset_commands] )) ||
-_starship__help__preset_commands() {
+(( $+functions[_starship__subcmd__help__subcmd__preset_commands] )) ||
+_starship__subcmd__help__subcmd__preset_commands() {
     local commands; commands=()
     _describe -t commands 'starship help preset commands' commands "$@"
 }
-(( $+functions[_starship__help__print-config_commands] )) ||
-_starship__help__print-config_commands() {
+(( $+functions[_starship__subcmd__help__subcmd__print-config_commands] )) ||
+_starship__subcmd__help__subcmd__print-config_commands() {
     local commands; commands=()
     _describe -t commands 'starship help print-config commands' commands "$@"
 }
-(( $+functions[_starship__help__prompt_commands] )) ||
-_starship__help__prompt_commands() {
+(( $+functions[_starship__subcmd__help__subcmd__prompt_commands] )) ||
+_starship__subcmd__help__subcmd__prompt_commands() {
     local commands; commands=()
     _describe -t commands 'starship help prompt commands' commands "$@"
 }
-(( $+functions[_starship__help__session_commands] )) ||
-_starship__help__session_commands() {
+(( $+functions[_starship__subcmd__help__subcmd__session_commands] )) ||
+_starship__subcmd__help__subcmd__session_commands() {
     local commands; commands=()
     _describe -t commands 'starship help session commands' commands "$@"
 }
-(( $+functions[_starship__help__time_commands] )) ||
-_starship__help__time_commands() {
+(( $+functions[_starship__subcmd__help__subcmd__statusline_commands] )) ||
+_starship__subcmd__help__subcmd__statusline_commands() {
+    local commands; commands=()
+    _describe -t commands 'starship help statusline commands' commands "$@"
+}
+(( $+functions[_starship__subcmd__help__subcmd__time_commands] )) ||
+_starship__subcmd__help__subcmd__time_commands() {
     local commands; commands=()
     _describe -t commands 'starship help time commands' commands "$@"
 }
-(( $+functions[_starship__help__timings_commands] )) ||
-_starship__help__timings_commands() {
+(( $+functions[_starship__subcmd__help__subcmd__timings_commands] )) ||
+_starship__subcmd__help__subcmd__timings_commands() {
     local commands; commands=()
     _describe -t commands 'starship help timings commands' commands "$@"
 }
-(( $+functions[_starship__help__toggle_commands] )) ||
-_starship__help__toggle_commands() {
+(( $+functions[_starship__subcmd__help__subcmd__toggle_commands] )) ||
+_starship__subcmd__help__subcmd__toggle_commands() {
     local commands; commands=()
     _describe -t commands 'starship help toggle commands' commands "$@"
 }
-(( $+functions[_starship__init_commands] )) ||
-_starship__init_commands() {
+(( $+functions[_starship__subcmd__init_commands] )) ||
+_starship__subcmd__init_commands() {
     local commands; commands=()
     _describe -t commands 'starship init commands' commands "$@"
 }
-(( $+functions[_starship__module_commands] )) ||
-_starship__module_commands() {
+(( $+functions[_starship__subcmd__module_commands] )) ||
+_starship__subcmd__module_commands() {
     local commands; commands=()
     _describe -t commands 'starship module commands' commands "$@"
 }
-(( $+functions[_starship__preset_commands] )) ||
-_starship__preset_commands() {
+(( $+functions[_starship__subcmd__preset_commands] )) ||
+_starship__subcmd__preset_commands() {
     local commands; commands=()
     _describe -t commands 'starship preset commands' commands "$@"
 }
-(( $+functions[_starship__print-config_commands] )) ||
-_starship__print-config_commands() {
+(( $+functions[_starship__subcmd__print-config_commands] )) ||
+_starship__subcmd__print-config_commands() {
     local commands; commands=()
     _describe -t commands 'starship print-config commands' commands "$@"
 }
-(( $+functions[_starship__prompt_commands] )) ||
-_starship__prompt_commands() {
+(( $+functions[_starship__subcmd__prompt_commands] )) ||
+_starship__subcmd__prompt_commands() {
     local commands; commands=()
     _describe -t commands 'starship prompt commands' commands "$@"
 }
-(( $+functions[_starship__session_commands] )) ||
-_starship__session_commands() {
+(( $+functions[_starship__subcmd__session_commands] )) ||
+_starship__subcmd__session_commands() {
     local commands; commands=()
     _describe -t commands 'starship session commands' commands "$@"
 }
-(( $+functions[_starship__time_commands] )) ||
-_starship__time_commands() {
+(( $+functions[_starship__subcmd__statusline_commands] )) ||
+_starship__subcmd__statusline_commands() {
+    local commands; commands=()
+    _describe -t commands 'starship statusline commands' commands "$@"
+}
+(( $+functions[_starship__subcmd__time_commands] )) ||
+_starship__subcmd__time_commands() {
     local commands; commands=()
     _describe -t commands 'starship time commands' commands "$@"
 }
-(( $+functions[_starship__timings_commands] )) ||
-_starship__timings_commands() {
+(( $+functions[_starship__subcmd__timings_commands] )) ||
+_starship__subcmd__timings_commands() {
     local commands; commands=()
     _describe -t commands 'starship timings commands' commands "$@"
 }
-(( $+functions[_starship__toggle_commands] )) ||
-_starship__toggle_commands() {
+(( $+functions[_starship__subcmd__toggle_commands] )) ||
+_starship__subcmd__toggle_commands() {
     local commands; commands=()
     _describe -t commands 'starship toggle commands' commands "$@"
 }

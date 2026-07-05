@@ -6,7 +6,7 @@ return {
 	dependencies = {
 		"nvim-mini/mini.nvim",
 	},
-	event = "BufRead",
+	-- enabled = false,
 	config = function()
 		local lualine = require("lualine")
 		-- Mode icon map
@@ -123,7 +123,7 @@ return {
 					{
 						"filetype",
 						colored = true,
-						icon_only = true,
+						icon_only = false,
 						-- separator = { left = "", right = "" },
 						-- padding = { right = 1, left = 1 },
 					},

@@ -6,7 +6,7 @@ bindkey -v
 # zsh-autosuggestions
 bindkey ',' autosuggest-accept
 
-bindkey '/' menu-search
+bindkey '\' menu-search
 bindkey '£' menu-select
 bindkey '^I' menu-select
 

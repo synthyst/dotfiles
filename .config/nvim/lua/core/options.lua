@@ -53,6 +53,7 @@ vim.opt.mousemoveevent = true
 vim.opt.statuscolumn = "%s%=%l%r%=%#StatColSep#│"
 vim.opt.signcolumn = "auto"
 vim.opt.showmode = false
+vim.opt.showcmd = false
 vim.opt.spell = false
 vim.opt.list = false
 vim.opt.fillchars = { eob = " ", fold = "*", foldopen = "-", foldclose = "+", foldsep = " " }
