@@ -1,8 +1,4 @@
-#!/data/data/com.termux/files/usr/bin/bash
-# ╔══════════════════════════════════════════════════════════════╗
-# ║              SYNDOT — Dotfiles Installer for Termux          ║
-# ║                    Powered by GNU Stow                       ║
-# ╚══════════════════════════════════════════════════════════════╝
+#!/$PATH/bash
 
 set -e  # Exit immediately on any error
 

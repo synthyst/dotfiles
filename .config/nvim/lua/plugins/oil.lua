@@ -16,7 +16,7 @@ return {
 	event = "BufReadPost",
 	keymap = { "-" },
 	config = function()
-		require("lua.scripts.oil_stuff")
+		require(vim.fn.expand("$HOME/dotfiles/.config/nvim/lua/scripts/oil_stuff"))
 		require("oil").setup({
 			default_file_explorer = true,
 			keymaps = {
