@@ -36,28 +36,6 @@ return {
 				h5 = "pine",
 				h6 = "foam",
 			},
-			palette = {
-				main = {
-					_nc = "#16141f",
-					base = "#191724",
-					surface = "#1f1d2e",
-					overlay = "#26233a",
-					muted = "#6e6a86",
-					subtle = "#908caa",
-					text = "#dbdbff",
-					love = "#e060a0", -- cool magenta pink (was warm pink-red)
-					gold = "#9966dd", -- sky blue (was yellow-gold)
-					rose = "#e8b0d8", -- soft cool pink (was warm peach)
-					pine = "#4878c8", -- deep blue (was teal-green)
-					foam = "#a0b8f0", -- periwinkle blue (was cyan-teal)
-					iris = "#c4a7e7", -- unchanged (already purple)
-					leaf = "#D59ACC", -- muted blue-purple (was muted sage-green)
-					highlight_low = "#21202e",
-					highlight_med = "#403d52",
-					highlight_high = "#524f67",
-					none = "NONE",
-				},
-			},
 			highlight_groups = {
 				SnacksPickerListCursorLine = { bg = "none", bold = true, italic = true },
 				SnacksPickerPreviewCursorLine = { bg = "none", bold = true, italic = true },

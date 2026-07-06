@@ -2,11 +2,21 @@ return {
 	"stevearc/oil.nvim",
 	dependencies = {
 		{ "nvim-mini/mini.nvim", opts = {} },
+		{
+			"malewicz1337/oil-git.nvim",
+			dependencies = { "stevearc/oil.nvim" },
+			opts = {
+				show_file_highlights = true,
+				show_directory_highlights = false,
+				show_ignored_files = true,
+			},
+		},
 	},
 	lazy = true,
 	event = "BufReadPost",
 	keymap = { "-" },
 	config = function()
+		require("lua.scripts.oil_stuff")
 		require("oil").setup({
 			default_file_explorer = true,
 			keymaps = {

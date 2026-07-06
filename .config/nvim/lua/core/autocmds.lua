@@ -32,6 +32,13 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
+vim.api.nvim_create_autocmd("CmdlineEnter", {
+	once = true,
+	callback = function()
+		require("lua.scripts.range_highlight").setup({})
+	end,
+})
+
 -- vim.api.nvim_create_autocmd("InsertEnter", {
 -- 	group = "SynVim",
 -- 	callback = function(args)
